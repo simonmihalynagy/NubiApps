@@ -5,8 +5,7 @@ const User = require("../models/User");
 
 //*sign up/
 router.post("/signup", (req, res, next) => {
-  const username = req.body.username;
-  const password = req.body.password;
+  const { firstName, lastName, username, password, phone, email } = req.body;
 
   User.findOne({ username: username }).then((foundUser) => {
     if (foundUser) {
@@ -18,6 +17,11 @@ router.post("/signup", (req, res, next) => {
       const aNewUser = new User({
         username: username,
         password: hashPass,
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+        email: email,
+
         isAdmin: true,
       });
 
@@ -46,6 +50,14 @@ router.post("/login", (req, res, next) => {
       }
     }
   });
+});
+
+router.get("/checkuser", (req, res, next) => {
+  if (req.session.currentUser) {
+    res.json({ userDoc: req.session.currentUser });
+  } else {
+    res.json({ userDoc: null });
+  }
 });
 
 module.exports = router;

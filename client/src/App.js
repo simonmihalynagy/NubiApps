@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
 
-function App() {
+function App(props) {
+  const [currentUser, setCurrentUser] = useState(props.user);
+  const [isLogin, setIsLogin] = useState(null);
+  const loginHandler = (userObject) => {
+    setCurrentUser(userObject);
+    console.log(currentUser);
+  };
+
+  const clickHandler = () => {
+    setIsLogin(!isLogin);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      {isLogin === null && (
+        <div>
+          <button>Log-In!</button>
+          <button>Sign-Up!</button>
+        </div>
+      )}
+      <Login onLogin={loginHandler}></Login>
+      <Signup></Signup>
+    </React.Fragment>
   );
 }
 
