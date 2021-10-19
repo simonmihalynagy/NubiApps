@@ -8,7 +8,7 @@ const userSchema = new Schema({
   phone: String,
   password: String, // hashed
   email: String,
-  isAdmin: Boolean,
+  type: { type: String, enum: ["admin", "employee"] },
 });
 
 const User = mongoose.model("User", userSchema);

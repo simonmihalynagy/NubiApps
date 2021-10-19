@@ -3,9 +3,9 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 
-//*sign up/
+//*SIGN-UP ROUTE*/
 router.post("/signup", (req, res, next) => {
-  const { firstName, lastName, username, password, phone, email } = req.body;
+  const { username, password } = req.body;
 
   User.findOne({ username: username }).then((foundUser) => {
     if (foundUser) {
@@ -17,20 +17,16 @@ router.post("/signup", (req, res, next) => {
       const aNewUser = new User({
         username: username,
         password: hashPass,
-        firstName: firstName,
-        lastName: lastName,
-        phone: phone,
-        email: email,
-
-        isAdmin: true,
       });
 
       aNewUser.save().then(() => {
-        res.json({ message: "user created" });
+        res.json({ message: "user registered!" });
       });
     }
   });
 });
+
+//**LOGIN ROUTE */
 
 router.post("/login", (req, res, next) => {
   const username = req.body.username;
@@ -52,12 +48,21 @@ router.post("/login", (req, res, next) => {
   });
 });
 
+//* (ONCE, ON START) LET REACT KNOW IF THERE IS A LOGGED IN USER
+
 router.get("/checkuser", (req, res, next) => {
   if (req.session.currentUser) {
     res.json({ userDoc: req.session.currentUser });
   } else {
     res.json({ userDoc: null });
   }
+});
+
+//*LOG-OUT ROUTE*/
+
+router.post("/logout", (req, res, next) => {
+  req.session.destroy();
+  res.json({ message: "user logged out" });
 });
 
 module.exports = router;

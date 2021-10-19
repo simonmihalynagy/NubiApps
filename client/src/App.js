@@ -1,28 +1,24 @@
-import React, { useState } from "react";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
+import React from "react";
+//import { Route, BrowserRouter as Router } from "react-router-dom";
+import Home from "./pages/Home";
+// import Signup from "./components/Signup";
+// import Login from "./components/Login";
+import Navbar from "./components/Navbar";
 
 function App(props) {
-  const [currentUser, setCurrentUser] = useState(props.user);
-  const [isLogin, setIsLogin] = useState(null);
-  const loginHandler = (userObject) => {
-    setCurrentUser(userObject);
-    console.log(currentUser);
-  };
+  //*state to manage currently logged in user*/
+  //const [currentUser, setCurrentUser] = useState(props.user);
 
-  const clickHandler = () => {
-    setIsLogin(!isLogin);
-  };
+  // <Router>
+  //   <Route exact path="/" component={Home} />
+  //   <Route exact path="/signup" component={Signup} />
+  //   <Route exact path="/login" render={()=><Login ></Login>} />
+  // </Router>
+
   return (
     <React.Fragment>
-      {isLogin === null && (
-        <div>
-          <button>Log-In!</button>
-          <button>Sign-Up!</button>
-        </div>
-      )}
-      <Login onLogin={loginHandler}></Login>
-      <Signup></Signup>
+      <Navbar />
+      <Home currentUser={props.user} />;
     </React.Fragment>
   );
 }
