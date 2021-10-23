@@ -20,7 +20,7 @@ router.post("/signup", (req, res, next) => {
       });
 
       aNewUser.save().then(() => {
-        res.json({ message: "user registered!" });
+        res.json({ message: "user registered!", user: aNewUser });
       });
     }
   });

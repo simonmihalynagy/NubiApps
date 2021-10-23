@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Redirect, Link } from "react-router-dom";
 import axios from "axios";
 
 export default function Login(props) {
@@ -6,6 +7,8 @@ export default function Login(props) {
     username: "",
     password: "",
   });
+
+  const [loginFailed, setLoginFailed] = useState(false);
 
   const inputChangeHangler = (event) => {
     const value = event.target.value;
@@ -15,17 +18,20 @@ export default function Login(props) {
     });
   };
 
-  // const login = () => {
-
-  // };
-
   const submitHandler = (event) => {
     event.preventDefault();
+
     axios
       .post("/auth/login", credentials)
       .then((response) => {
-        //console.log(response.data);
-        props.setCurrentUser(response.data.user);
+        console.log(response.data);
+        props.onLogin(response.data.user);
+        // response.data.user
+        //   ? props.onLogin(response.data.user)
+        //   : (setLoginFailed(true),
+        //     alert(
+        //       "the password or/and username you entered are invalid, please try again"
+        //     ));
       })
       .catch((error) => {
         console.log(error);
@@ -33,35 +39,42 @@ export default function Login(props) {
   };
 
   return (
-    <div>
-      <div className="text-6xl flex justify-center items-center h-60">
-        <h1>Please Log-In!</h1>
+    <div className="flex justify-center ">
+      <div className="flex flex-col items-center ">
+        <h1 className="flex content-center text-2xl mt-10 mb-10">
+          Please Log-In!
+        </h1>
+
+        <form className="flex flex-col items-center" onSubmit={submitHandler}>
+          <label>Enter Username</label>
+          <input
+            onChange={inputChangeHangler}
+            type="text"
+            name="username"
+            value={credentials.username}
+          />
+          <label>Enter Password</label>
+          <input
+            onChange={inputChangeHangler}
+            type="password"
+            name="password"
+            value={credentials.password}
+          />
+
+          <button
+            className="w-4/12 rounded bg-purple-600 text-white mt-10 border-2 border-black"
+            type="submit"
+          >
+            Sign in!
+          </button>
+        </form>
+        <p className="pt-4 ">or sign-up first:</p>
+        <Link to="/signup">
+          <button className=" rounded bg-purple-600 text-white  border-2 border-black">
+            Sign-Up
+          </button>
+        </Link>
       </div>
-      <form onSubmit={submitHandler} className="flex flex-col items-center">
-        <label className="pt-6 pb-2 text-2xl">Enter Username</label>
-        <input
-          className="border-gray-300 rounded-lg shadow-md focus:ring-purple-600"
-          onChange={inputChangeHangler}
-          type="text"
-          name="username"
-          value={credentials.username}
-        />
-        <label className="pt-6 pb-2 text-2xl">Enter Password</label>
-        <input
-          className="border-gray-300 rounded-lg shadow-md focus:ring-purple-600"
-          onChange={inputChangeHangler}
-          type="password"
-          name="password"
-          value={credentials.password}
-        />
-        <button
-          className="m-10 rounded-lg p-6 h-20
-             text-white bg-purple-600 text-2xl"
-          type="submit"
-        >
-          Sign in!
-        </button>
-      </form>
     </div>
   );
 }
