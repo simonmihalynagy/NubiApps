@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default function Login(props) {
@@ -8,7 +8,7 @@ export default function Login(props) {
     password: "",
   });
 
-  const [loginFailed, setLoginFailed] = useState(false);
+  const [loginError, setLoginError] = useState("");
 
   const inputChangeHangler = (event) => {
     const value = event.target.value;
@@ -24,8 +24,13 @@ export default function Login(props) {
     axios
       .post("/auth/login", credentials)
       .then((response) => {
-        console.log(response.data);
-        props.onLogin(response.data.user);
+        if (response.data.user) {
+          console.log(response.data);
+          props.onLogin(response.data.user);
+        } else {
+          setLoginError(response.data.message);
+        }
+
         // response.data.user
         //   ? props.onLogin(response.data.user)
         //   : (setLoginFailed(true),
@@ -44,6 +49,7 @@ export default function Login(props) {
         <h1 className="flex content-center text-2xl mt-10 mb-10">
           Please Log-In!
         </h1>
+        {loginError && <div style={{ color: "red" }}>{loginError}</div>}
 
         <form className="flex flex-col items-center" onSubmit={submitHandler}>
           <label>Enter Username</label>

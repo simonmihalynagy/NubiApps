@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Route, BrowserRouter as Router, Redirect } from "react-router-dom";
+
 import Home from "./pages/Home";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import Welcome from "./components/Welcome";
 import Account from "./pages/Account";
+import EditAccount from "./pages/EditAccount";
 
 function App(props) {
   //*state to manage currently logged in user*/
@@ -26,7 +28,6 @@ function App(props) {
         exact
         path="/"
         render={() => {
-          console.log(currentUser);
           return currentUser === null ? <Welcome /> : <Redirect to="/home" />;
         }}
       />
@@ -35,7 +36,7 @@ function App(props) {
         path="/login"
         render={() => {
           console.log(currentUser);
-          return currentUser === null ? (
+          return !currentUser ? (
             <Login onLogin={loginHandler} />
           ) : (
             <Redirect to="/home" />
@@ -70,6 +71,17 @@ function App(props) {
         render={() => {
           return currentUser ? (
             <Account user={currentUser} />
+          ) : (
+            <Redirect to="/login" />
+          );
+        }}
+      />
+      <Route
+        exact
+        path="/home/edit-account"
+        render={() => {
+          return currentUser ? (
+            <EditAccount user={currentUser} />
           ) : (
             <Redirect to="/login" />
           );
