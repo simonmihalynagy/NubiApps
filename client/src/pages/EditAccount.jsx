@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function EditAccount(props) {
   const [accountData, setAccountData] = useState({
@@ -7,8 +8,9 @@ export default function EditAccount(props) {
     firstName: "",
     lastName: "",
     phone: "",
-
+    //image: "",
     email: "",
+    //password
   });
 
   const inputChangeHandler = (event) => {
@@ -26,7 +28,7 @@ export default function EditAccount(props) {
     console.log(userId);
     event.preventDefault();
     axios
-      .post(`/home/edit-account/${userId}`, accountData)
+      .put(`/home/edit-account/${userId}`, accountData)
       .then((response) => {
         const newUserData = response.data.updatedUser;
         setAccountData(newUserData);
@@ -35,6 +37,15 @@ export default function EditAccount(props) {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const deleteRequestHandler = () => {
+    const userId = props.user._id;
+    axios.delete(`/home/delete-account/${userId}`).then((response) => {
+      const user = null;
+      props.onDeleteAccount(user);
+      console.log(response.data);
+    });
   };
 
   return (
@@ -92,6 +103,19 @@ export default function EditAccount(props) {
           Save Changes
         </button>
       </form>
+
+      <button
+        className="border-2 rounded bg-purple-600 text-white"
+        onClick={deleteRequestHandler}
+      >
+        Delete My Account
+      </button>
+
+      <Link to="/home">
+        <button className="border-2 rounded bg-purple-600 text-white">
+          Go Back
+        </button>
+      </Link>
     </div>
   );
 }

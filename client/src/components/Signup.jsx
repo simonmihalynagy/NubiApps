@@ -13,7 +13,7 @@ export default function Signup(props) {
     type: "admin",
   });
 
-  const inputChangeHangler = (event) => {
+  const inputChangeHandler = (event) => {
     const value = event.target.value;
     setCredentials({
       ...credentials,
@@ -47,42 +47,42 @@ export default function Signup(props) {
           <form className="flex flex-col items-center" onSubmit={submitHandler}>
             <label>Your First Name</label>
             <input
-              onChange={inputChangeHangler}
+              onChange={inputChangeHandler}
               type="text"
               name="firstName"
               value={credentials.firstName}
             />
             <label>Your Last Name</label>
             <input
-              onChange={inputChangeHangler}
+              onChange={inputChangeHandler}
               type="text"
               name="lastName"
               value={credentials.lastName}
             />
             <label>Choose A Username</label>
             <input
-              onChange={inputChangeHangler}
+              onChange={inputChangeHandler}
               type="text"
               name="username"
               value={credentials.username}
             />
             <label>Choose A Password</label>
             <input
-              onChange={inputChangeHangler}
+              onChange={inputChangeHandler}
               type="password"
               name="password"
               value={credentials.password}
             />
             <label>Your Phone Number</label>
             <input
-              onChange={inputChangeHangler}
+              onChange={inputChangeHandler}
               type="text"
               name="phone"
               value={credentials.phone}
             />
             <label>Your E-mail Address</label>
             <input
-              onChange={inputChangeHangler}
+              onChange={inputChangeHandler}
               type="email"
               name="email"
               value={credentials.email}

@@ -18,7 +18,7 @@ export default function Home(props) {
             Edit Account
           </button>
         </Link>
-        <Link to="/home/business-setup">
+        <Link to="/home/business">
           <button className=" rounded bg-purple-600 text-white  border-2 border-black">
             Business Setup
           </button>

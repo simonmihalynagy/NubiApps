@@ -17,19 +17,32 @@ router.put("/edit-account/:id", (req, res, next) => {
   const userId = req.params.id;
   const { username, firstName, lastName, phone, email } = req.body;
 
+  // const salt = bcrypt.genSaltSync(10);
+  // const hashPass = bcrypt.hashSync(password, salt);
+
   User.findByIdAndUpdate(
     userId,
     {
+      //image: image,
       username: username,
       firstName: firstName,
       lastName: lastName,
       phone: phone,
-
+      //password: hashPass
       email: email,
     },
     { new: true }
   ).then((updatedUser) => {
     res.json({ message: "user data updated", updatedUser: updatedUser });
+  });
+});
+
+router.delete("/delete-account/:id", (req, res, next) => {
+  req.session.destroy();
+  const userId = req.params.id;
+
+  User.findByIdAndDelete(userId).then((result) => {
+    res.json(result);
   });
 });
 module.exports = router;

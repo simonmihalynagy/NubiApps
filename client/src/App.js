@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 import Welcome from "./components/Welcome";
 import Account from "./pages/Account";
 import EditAccount from "./pages/EditAccount";
+import BusinessSetup from "./pages/BusinessSetup";
 
 function App(props) {
   //*state to manage currently logged in user*/
@@ -81,7 +82,18 @@ function App(props) {
         path="/home/edit-account"
         render={() => {
           return currentUser ? (
-            <EditAccount user={currentUser} />
+            <EditAccount onDeleteAccount={loginHandler} user={currentUser} />
+          ) : (
+            <Redirect to="/login" />
+          );
+        }}
+      />
+      <Route
+        exact
+        path="/home/business"
+        render={() => {
+          return currentUser.type === "admin" ? (
+            <BusinessSetup user={currentUser} />
           ) : (
             <Redirect to="/login" />
           );

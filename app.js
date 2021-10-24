@@ -80,4 +80,10 @@ app.use("/auth", auth);
 const home = require("./routes/home");
 app.use("/home", home);
 
+const business = require("./routes/business");
+app.use("/business", business);
+
+const appointment = require("./routes/appointment");
+app.use("appointment", appointment);
+
 module.exports = app;
