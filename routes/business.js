@@ -155,7 +155,7 @@ router.delete("/delete-service/:serviceId", (req, res, next) => {
   });
 });
 
-//** POST STAFF MEMEBER */
+//** POST STAFF MEMEBER TESTED!*/
 
 router.post("/add-employee/:businessId", (req, res, next) => {
   const businessId = req.params.businessId;
@@ -204,8 +204,49 @@ router.post("/add-employee/:businessId", (req, res, next) => {
 //   done
 // );
 
-//** GET STAFF MEMEBER */
+//** GET STAFF MEMEBERS TESTED!*/
+
+router.get("/staff-members/:businessId", (req, res, next) => {
+  const businessId = req.params.businessId;
+  Business.find({ _id: businessId })
+    .populate("employees")
+    .then((foundStaffmembers) => {
+      res.json({ foundStaffMembers: foundStaffmembers });
+    });
+});
 //** PUT STAFF MEMEBER*/
-//** DELETE STAFF MEMEBER*/
+router.put("/edit-employee/:employeeId", (req, res, next) => {
+  const employeeId = req.params.employeeId;
+  const { firstName, lastName, username, password } = req.body;
+
+  const salt = bcrypt.genSaltSync(10);
+  const hashPass = bcrypt.hashSync(password, salt);
+
+  User.findByIdAndUpdate(
+    employeeId,
+    {
+      firstName: firstName,
+      lastName: lastName,
+      username: username,
+      password: hashPass,
+    },
+    { new: true }
+  ).then((updatedEmployee) => {
+    res.json({ updatedEmployee: updatedEmployee });
+  });
+});
+//** DELETE STAFF MEMEBER TESTED!*/
+
+router.delete("/delete-employee/:employeeId", (req, res, next) => {
+  const employeeId = req.params.employeeId;
+
+  User.findByIdAndDelete(employeeId)
+    .then((updatedEmployee) => {
+      res.json("employee deleted");
+    })
+    .catch((error) => {
+      res.json(error);
+    });
+});
 
 module.exports = router;
