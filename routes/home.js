@@ -44,5 +44,7 @@ router.delete("/delete-account/:id", (req, res, next) => {
   User.findByIdAndDelete(userId).then((result) => {
     res.json(result);
   });
+
+  //BUsiness.delete(business_id) ??????
 });
 module.exports = router;

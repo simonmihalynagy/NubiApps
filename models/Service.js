@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const serviceSchema = new Schema({
   business: { type: Schema.Types.ObjectId, ref: "User" },
+  name: String,
   description: String,
   image: String,
   duration: String,
