@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import BusinessSetupMain from "../components/BusinessSetupMain";
-import ServicesSetup from "../components/ServicesSetup";
-import StaffSetup from "../components/StaffSetup";
-import BusinessDataSetup from "../components/BusinessDataSetup";
-import ScheduleSetup from "../components/ScheduleSetup";
+import BusinessSetupMain from "../components/Business/BusinessSetupMain";
+import ServicesSetup from "../components/Business/ServicesSetup";
+import StaffSetup from "../components/Business/StaffSetup";
+import EditBusinessData from "../components/Business/BusinessDataSetup";
+import ScheduleSetup from "../components/Business/ScheduleSetup";
 
 export default function BusinessSetup(props) {
-  console.log(props.user);
+  //console.log(props.user);
   const [isServices, setIsServices] = useState(false);
   const [isStaff, setIsStaff] = useState(false);
   const [isData, setIsData] = useState(false);
@@ -63,10 +63,27 @@ export default function BusinessSetup(props) {
           onScheduleSetupClick={scheduleClickHandler}
         />
       )}
-      {isServices && <ServicesSetup onBackToMainClick={renderBusinessMain} />}
-      {isStaff && <StaffSetup onBackToMainClick={renderBusinessMain} />}
-      {isData && <BusinessDataSetup onBackToMainClick={renderBusinessMain} />}
-      {isSchedule && <ScheduleSetup onBackToMainClick={renderBusinessMain} />}
+      {isServices && (
+        <ServicesSetup
+          user={props.user}
+          onBackToMainClick={renderBusinessMain}
+        />
+      )}
+      {isStaff && (
+        <StaffSetup user={props.user} onBackToMainClick={renderBusinessMain} />
+      )}
+      {isData && (
+        <EditBusinessData
+          user={props.user}
+          onBackToMainClick={renderBusinessMain}
+        />
+      )}
+      {isSchedule && (
+        <ScheduleSetup
+          user={props.user}
+          onBackToMainClick={renderBusinessMain}
+        />
+      )}
     </React.Fragment>
   );
 }

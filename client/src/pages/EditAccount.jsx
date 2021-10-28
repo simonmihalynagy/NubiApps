@@ -3,15 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 export default function EditAccount(props) {
-  const [accountData, setAccountData] = useState({
-    username: "",
-    firstName: "",
-    lastName: "",
-    phone: "",
-    //image: "",
-    email: "",
-    //password
-  });
+  const [accountData, setAccountData] = useState(props.user);
 
   const inputChangeHandler = (event) => {
     const value = event.target.value;

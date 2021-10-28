@@ -15,11 +15,11 @@ router.post("/create", (req, res, next) => {
     location,
   } = req.body;
 
-  Business.findOne({ name: name }).then((foundBusiness) => {
+  Business.findOne({ admin: adminId }).then((foundBusiness) => {
     if (foundBusiness) {
       res.json({
         message:
-          "Another business already exists with this name, please choose another!",
+          "You already have a business created, greed is a daaaaaangerous thingy!",
       });
     } else {
       const aNewBusiness = new Business({
@@ -47,8 +47,8 @@ router.post("/create", (req, res, next) => {
 //** */ GET Business Data? TESTED! */
 router.get("/get-business-data/:adminId", (req, res, next) => {
   Business.find({ admin: req.params.adminId })
-    .then((foundBusinesses) => {
-      res.json({ foundBusinesses: foundBusinesses });
+    .then((foundBusiness) => {
+      res.json({ foundBusiness: foundBusiness });
     })
     .catch((error) => {
       res.json(error);

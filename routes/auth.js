@@ -5,7 +5,7 @@ const User = require("../models/User");
 
 //*SIGN-UP ROUTE*/
 router.post("/signup", (req, res, next) => {
-  const { username, password } = req.body;
+  const { username, password, email, firstName, lastName, phone } = req.body;
 
   User.findOne({ username: username }).then((foundUser) => {
     if (foundUser) {
@@ -17,6 +17,10 @@ router.post("/signup", (req, res, next) => {
       const aNewUser = new User({
         username: username,
         password: hashPass,
+        phone: phone,
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
         type: "admin",
       });
 

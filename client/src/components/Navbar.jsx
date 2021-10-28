@@ -1,5 +1,5 @@
 import React from "react";
-import Logout from "./Logout";
+import Logout from "./Authentication/Logout";
 
 export default function Navbar(props) {
   return (
