@@ -92,46 +92,45 @@ router.post("/add-service/:businessOwnerId", (req, res, next) => {
     cost,
   } = req.body;
 
-  Service.create({
-    business: businessOwnerId,
-    name: name,
-    description: description,
-    duration: duration,
-    cost: cost,
-  }).then((result) => {
-    res.json(result).catch((error) => {
-      res.json(error);
+  Business.find({ admin: businessOwnerId }).then((foundBusiness) => {
+    console.log("this is the foundbusiness", foundBusiness);
+    Service.create({
+      business: foundBusiness[0]._id,
+      name: name,
+      description: description,
+      duration: duration,
+      cost: cost,
+    }).then((result) => {
+      res.json(result).catch((error) => {
+        res.json(error);
+      });
     });
   });
 });
 //** GET SERVICES TESTED!*/
-router.get("/get-services/:businessId", (req, res, next) => {
-  const businessId = req.params.businessId;
-  Service.find({ business: businessId })
-    .then((foundServices) => {
-      res.json({ foundServices: foundServices });
-    })
-    .catch((error) => {
-      res.json(error);
-    });
+router.get("/get-services/:businessOwnerId", (req, res, next) => {
+  const businessOwnerId = req.params.businessId;
+  Business.find({ admin: businessOwnerId }).then((foundBusiness) => {
+    Service.find({ business: foundBusiness[0].admin })
+      .then((foundServices) => {
+        res.json({ foundServices: foundServices });
+      })
+      .catch((error) => {
+        res.json(error);
+      });
+  });
 });
 
 //** PUT SERVICES TESTED!*/
 router.put("/edit-service/:serviceId", (req, res, next) => {
   const serviceId = req.params.serviceId;
-  const {
-    name,
-    description,
-    //image,
-    duration,
-    cost,
-  } = req.body;
+  const { name, description, image, duration, cost } = req.body;
   Service.findByIdAndUpdate(
     serviceId,
     {
       name: name,
       description: description,
-      //image: image,
+      image: image,
       duration: duration,
       cost: cost,
     },
