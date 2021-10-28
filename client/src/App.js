@@ -92,7 +92,7 @@ function App(props) {
         exact
         path="/home/business"
         render={() => {
-          return currentUser.type === "admin" ? (
+          return currentUser && currentUser.type === "admin" ? (
             <BusinessSetup user={currentUser} />
           ) : (
             <Redirect to="/login" />

@@ -5,17 +5,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import axios from "axios";
 
-axios
-  .get("/auth/checkuser")
-  .then((res) => {
-    ReactDOM.render(
-      <App user={res.data.userDoc} />,
-      document.getElementById("root")
-    );
-  })
-  .catch((err) => {
-    alert("backend not running or /checkuser route not defined !");
-  });
+axios.get("/auth/checkuser").then((res) => {
+  ReactDOM.render(
+    <App user={res.data.userDoc} />,
+    document.getElementById("root")
+  );
+});
+// .catch((err) => {
+//   alert("backend not running or /checkuser route not defined !");
+// });
 
 // ReactDOM.render(
 //   <React.StrictMode>
