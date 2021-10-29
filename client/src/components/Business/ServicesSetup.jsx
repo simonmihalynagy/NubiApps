@@ -12,11 +12,17 @@ export default function ServicesSetup(props) {
     axios.get(`/business/get-services/${props.user._id}`).then((response) => {
       setServices(response.data.foundServices);
     });
-  }, []);
+  }, [setServices]);
 
   const editClickHandler = (service) => {
     setIsEditService(!isEditService);
     setSingleService(service);
+  };
+
+  const deleteClickHandler = (serviceId) => {
+    axios.delete(`/business/delete-service/${serviceId}`).then((response) => {
+      console.log(response.data);
+    });
   };
 
   return (
@@ -32,6 +38,12 @@ export default function ServicesSetup(props) {
                 onClick={() => editClickHandler(service)}
               >
                 Edit service
+              </button>
+              <button
+                className="rounded border-2 border-black bg-purple-600 text-white"
+                onClick={() => deleteClickHandler(service._id)}
+              >
+                Delete this service
               </button>
             </div>
           ))}

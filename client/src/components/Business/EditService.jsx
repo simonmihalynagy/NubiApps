@@ -12,8 +12,6 @@ export default function EditService(props) {
   };
 
   const submitHandler = (event) => {
-    event.preventDefault();
-
     axios
       .put(`/business/edit-service/${props.singleService._id}`, serviceData)
       .then((response) => {
