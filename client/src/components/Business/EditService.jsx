@@ -12,11 +12,14 @@ export default function EditService(props) {
   };
 
   const submitHandler = (event) => {
+    event.preventDefault();
+    props.setIsSubmitting(true);
     axios
       .put(`/business/edit-service/${props.singleService._id}`, serviceData)
       .then((response) => {
         console.log(response.data);
         props.onSaveChangesClick();
+        props.setIsSubmitting(false);
       });
   };
 

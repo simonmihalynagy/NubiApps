@@ -7,28 +7,38 @@ export default function ServicesSetup(props) {
   const [singleService, setSingleService] = useState({});
   const [services, setServices] = useState([]);
   const [isEditService, setIsEditService] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useEffect(() => {
+  const getServices = () => {
     axios.get(`/business/get-services/${props.user._id}`).then((response) => {
       setServices(response.data.foundServices);
     });
-  }, [setServices]);
+  };
+
+  useEffect(() => {
+    if (!isSubmitting) {
+      getServices();
+    }
+    // eslint-disable-next-line
+  }, [isSubmitting]);
 
   const editClickHandler = (service) => {
-    setIsEditService(!isEditService);
+    setIsEditService((previousState) => !previousState);
     setSingleService(service);
   };
 
   const deleteClickHandler = (serviceId) => {
+    setIsSubmitting(true);
     axios.delete(`/business/delete-service/${serviceId}`).then((response) => {
       console.log(response.data);
+      setIsSubmitting(false);
     });
   };
 
   return (
     <div>
-      <div className="flex flex-row ">
-        <div className="flex flex-col items-center  w-2/4">
+      <div className="flex">
+        <div className="flex flex-col items-center w-2/4">
           <h1>Services</h1>
           {services.map((service) => (
             <div key={service._id}>
@@ -48,9 +58,10 @@ export default function ServicesSetup(props) {
             </div>
           ))}
         </div>
-        <div className="flex flex-row  justify-center  w-2/4">
+        <div className="flex flex-row justify-center w-2/4">
           {isEditService ? (
             <EditService
+              setIsSubmitting={setIsSubmitting}
               singleService={singleService}
               onSaveChangesClick={editClickHandler}
             />
@@ -59,10 +70,7 @@ export default function ServicesSetup(props) {
           )}
         </div>
       </div>
-      <button
-        className="rounded border-2 border-black bg-purple-600 text-white"
-        onClick={props.onBackToMainClick}
-      >
+      <button className="rounded border-2 border-black bg-purple-600 text-white" onClick={props.onBackToMainClick}>
         Back to DashBoard
       </button>
     </div>

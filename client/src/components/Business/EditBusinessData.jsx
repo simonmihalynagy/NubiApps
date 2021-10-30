@@ -3,7 +3,7 @@ import axios from "axios";
 
 export default function EditBusiness(props) {
   const [businessData, setBusinessData] = useState({});
-  const [editBusinessError, setEditBusinessError] = useState("");
+  //const [editBusinessError, setEditBusinessError] = useState("");
 
   // const getBusinessData = () => {
   //   const adminId = props.user._id;
@@ -25,7 +25,7 @@ export default function EditBusiness(props) {
       );
       setBusinessData(response.data.foundBusiness[0]);
     });
-  }, []);
+  }, [adminId]);
 
   const inputChangeHandler = (event) => {
     const value = event.target.value;
@@ -53,9 +53,7 @@ export default function EditBusiness(props) {
   return (
     <div className="flex flex-col items-center ">
       <h1>You can edit your business data below:</h1>
-      {editBusinessError && (
-        <div style={{ color: "red" }}>{editBusinessError}</div>
-      )}
+      {/* {editBusinessError && <div style={{ color: "red" }}>{editBusinessError}</div>} */}
 
       <form className="flex flex-col items-center" onSubmit={submitHandler}>
         <label>Current name:</label>
@@ -82,17 +80,11 @@ export default function EditBusiness(props) {
           value={businessData.location}
           placeholder={businessData.location}
         />
-        <button
-          className=" rounded bg-purple-600 text-white  border-2 border-black"
-          type="submit"
-        >
+        <button className=" rounded bg-purple-600 text-white  border-2 border-black" type="submit">
           Save changes!
         </button>
       </form>
-      <button
-        className=" rounded  border-2 border-black"
-        onClick={props.onBackToMainClick}
-      >
+      <button className=" rounded  border-2 border-black" onClick={props.onBackToMainClick}>
         Back to DashBoard
       </button>
     </div>
