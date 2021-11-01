@@ -25,6 +25,7 @@ router.post("/signup", (req, res, next) => {
       });
 
       aNewUser.save().then(() => {
+        req.session.currentUser = aNewUser;
         res.json({ message: "user registered!", user: aNewUser });
       });
     }
