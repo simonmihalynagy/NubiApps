@@ -1,10 +1,64 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import AddNewEmployee from "./AddNewEmployee";
 
 export default function StaffSetup(props) {
+  //const [singleEmployee, setSingleEmployee] = useState({});
+  const [employees, setEmployees] = useState([]);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const getEmployees = () => {
+    axios.get(`/business/staff-members/${props.user._id}`).then((response) => {
+      setEmployees(response.data.foundStaffMembers);
+    });
+  };
+
+  useEffect(() => {
+    if (!isSubmitting) {
+      getEmployees();
+    }
+    // eslint-disable-next-line
+  }, [isSubmitting]);
+
+  // const editClickHandler = (service) => {
+  //   setIsEditService((previousState) => !previousState);
+  //   setSingleService(service);
+  // };
+
+  const deleteClickHandler = (employeeId) => {
+    setIsSubmitting(true);
+    axios.delete(`/business/delete-employee/${employeeId}`).then((response) => {
+      console.log(response.data);
+      setIsSubmitting(false);
+    });
+  };
+
   return (
     <div>
-      <h1>we will manage the staff here</h1>
-      <button onClick={props.onBackToMainClick}>Back to DashBoard</button>
+      <div className="flex">
+        <div className="flex flex-col items-center w-2/4">
+          <h1>Employees</h1>
+          {employees.map((employee) => (
+            <div key={employee._id}>
+              <h3 className="text-red-800">{employee.firstName}</h3>
+
+              <button
+                className="rounded border-2 border-black bg-purple-600 text-white"
+                onClick={() => deleteClickHandler(employee._id)}
+              >
+                Remove this employee
+              </button>
+            </div>
+          ))}
+        </div>
+        <div className="flex flex-row justify-center w-2/4">
+          <AddNewEmployee setIsSubmitting={setIsSubmitting} user={props.user} />
+        </div>
+      </div>
+      <button className="rounded border-2 border-black bg-purple-600 text-white" onClick={props.onBackToMainClick}>
+        Back to DashBoard
+      </button>
     </div>
   );
 }

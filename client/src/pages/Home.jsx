@@ -11,18 +11,16 @@ import { Link } from "react-router-dom";
 export default function Home(props) {
   return (
     <div>
-      <h1>Hellobello {props.user.name}</h1>
+      <h1>Hellobello {props.user.firstName}</h1>
       <div className="buttongrid">
         <Link to="/home/edit-account">
-          <button className=" rounded bg-purple-600 text-white  border-2 border-black">
-            Edit Account
-          </button>
+          <button className=" rounded bg-purple-600 text-white  border-2 border-black">Edit Account</button>
         </Link>
-        <Link to="/home/business">
-          <button className=" rounded bg-purple-600 text-white  border-2 border-black">
-            Business Setup
-          </button>
-        </Link>
+        {props.user.type === "admin" && (
+          <Link to="/home/business">
+            <button className=" rounded bg-purple-600 text-white  border-2 border-black">Business Setup</button>
+          </Link>
+        )}
       </div>
     </div>
   );

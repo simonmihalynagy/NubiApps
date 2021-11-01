@@ -111,10 +111,10 @@ router.post("/add-service/:businessOwnerId", (req, res, next) => {
 router.get("/get-services/:businessOwnerId", (req, res, next) => {
   const businessOwnerId = req.params.businessOwnerId;
   Business.find({ admin: businessOwnerId }).then((foundBusiness) => {
-    console.log(
-      "this is the found business from GET SERVICES: ",
-      foundBusiness[0]
-    );
+    // console.log(
+    //   "this is the found business from GET SERVICES: ",
+    //   foundBusiness[0]
+    // );
     Service.find({ business: foundBusiness[0]._id })
       .then((foundServices) => {
         res.json({ foundServices: foundServices });
@@ -160,9 +160,9 @@ router.delete("/delete-service/:serviceId", (req, res, next) => {
 
 //** POST STAFF MEMEBER TESTED!*/
 
-router.post("/add-employee/:businessId", (req, res, next) => {
-  const businessId = req.params.businessId;
-  const { username, password } = req.body;
+router.post("/add-employee/:businessAdminId", (req, res, next) => {
+  const businessAdminId = req.params.businessAdminId;
+  const { firstName, lastName, username, password, email } = req.body;
 
   User.findOne({ username: username }).then((foundUser) => {
     if (foundUser) {
@@ -174,14 +174,17 @@ router.post("/add-employee/:businessId", (req, res, next) => {
       const aNewEmployee = new User({
         username: username,
         password: hashPass,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
         type: "employee",
       });
 
       aNewEmployee
         .save()
         .then(() => {
-          Business.findByIdAndUpdate(
-            { _id: businessId },
+          Business.findOneAndUpdate(
+            { admin: businessAdminId },
             { $push: { employees: aNewEmployee.id } },
             { new: true }
           ).then((res) => {
@@ -209,12 +212,13 @@ router.post("/add-employee/:businessId", (req, res, next) => {
 
 //** GET STAFF MEMEBERS TESTED!*/
 
-router.get("/staff-members/:businessId", (req, res, next) => {
-  const businessId = req.params.businessId;
-  Business.find({ _id: businessId })
+router.get("/staff-members/:businessAdminId", (req, res, next) => {
+  const businessAdminId = req.params.businessAdminId;
+  Business.find({ admin: businessAdminId })
     .populate("employees")
-    .then((foundStaffmembers) => {
-      res.json({ foundStaffMembers: foundStaffmembers });
+    .then((foundBusiness) => {
+      console.log(foundBusiness[0].employees);
+      res.json({ foundStaffMembers: foundBusiness[0].employees });
     });
 });
 //** PUT STAFF MEMEBER*/
