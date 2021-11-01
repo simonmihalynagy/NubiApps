@@ -21,7 +21,9 @@ export default function AddNewService(props) {
   const submitHandler = (event) => {
     console.log(props.user._id);
     event.preventDefault();
+    props.setIsSubmitting(true);
     axios.post(`/business/add-service/${props.user._id}`, serviceData).then((response) => {
+      props.setIsSubmitting(false);
       console.log(response.data);
     });
   };

@@ -109,9 +109,13 @@ router.post("/add-service/:businessOwnerId", (req, res, next) => {
 });
 //** GET SERVICES TESTED!*/
 router.get("/get-services/:businessOwnerId", (req, res, next) => {
-  const businessOwnerId = req.params.businessId;
+  const businessOwnerId = req.params.businessOwnerId;
   Business.find({ admin: businessOwnerId }).then((foundBusiness) => {
-    Service.find({ business: foundBusiness[0].admin })
+    console.log(
+      "this is the found business from GET SERVICES: ",
+      foundBusiness[0]
+    );
+    Service.find({ business: foundBusiness[0]._id })
       .then((foundServices) => {
         res.json({ foundServices: foundServices });
       })

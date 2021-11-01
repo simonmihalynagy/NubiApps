@@ -66,7 +66,7 @@ export default function ServicesSetup(props) {
               onSaveChangesClick={editClickHandler}
             />
           ) : (
-            <AddNewService user={props.user} />
+            <AddNewService setIsSubmitting={setIsSubmitting} user={props.user} />
           )}
         </div>
       </div>
