@@ -9,6 +9,7 @@ import Welcome from "./components/Welcome";
 import Account from "./pages/Account";
 import EditAccount from "./pages/EditAccount";
 import BusinessSetup from "./pages/BusinessSetup";
+import Booking from "./pages/Booking";
 
 function App(props) {
   //*state to manage currently logged in user*/
@@ -37,44 +38,28 @@ function App(props) {
         path="/login"
         render={() => {
           console.log(currentUser);
-          return !currentUser ? (
-            <Login onLogin={loginHandler} />
-          ) : (
-            <Redirect to="/home" />
-          );
+          return !currentUser ? <Login onLogin={loginHandler} /> : <Redirect to="/home" />;
         }}
       />
       <Route
         exact
         path="/signup"
         render={() => {
-          return !currentUser ? (
-            <Signup onSignup={loginHandler} />
-          ) : (
-            <Redirect to="/login" />
-          );
+          return !currentUser ? <Signup onSignup={loginHandler} /> : <Redirect to="/login" />;
         }}
       />
       <Route
         exact
         path="/home"
         render={() => {
-          return currentUser ? (
-            <Home user={currentUser} />
-          ) : (
-            <Redirect to="/login" />
-          );
+          return currentUser ? <Home user={currentUser} /> : <Redirect to="/login" />;
         }}
       />
       <Route
         exact
         path="/account"
         render={() => {
-          return currentUser ? (
-            <Account user={currentUser} />
-          ) : (
-            <Redirect to="/login" />
-          );
+          return currentUser ? <Account user={currentUser} /> : <Redirect to="/login" />;
         }}
       />
       <Route
@@ -99,6 +84,7 @@ function App(props) {
           );
         }}
       />
+      <Route exact path="/booking" render={() => <Booking user={currentUser} />} />
     </Router>
   );
 }
