@@ -17,6 +17,8 @@ export default function Booking(props) {
   //**IF THERE IS ONLY ONE OPTION IN "SELECT" INPUT, MAKE SURE TO SET THAT AS DEFAULT SELECTED ITEM!!!!!! */
 
   const [bookingData, setbookingData] = useState({
+    date: "",
+    start: "",
     clientFirstName: "",
     clientLastName: "",
     clientPhoneNumber: "",
@@ -56,9 +58,17 @@ export default function Booking(props) {
 
   console.log(startDate.toLocaleString());
 
+  const submitBookingHandler = (event) => {
+    event.preventDefault();
+
+    axios.post("/booking/book-appointment", bookingData).then((response) => {
+      console.log(response);
+    });
+  };
+
   return (
     <div className="flex justify-center">
-      <form className="flex flex-col w-2/5">
+      <form onSubmit={submitBookingHandler} className="flex flex-col w-2/5">
         <label>First Name</label>
         <input
           onChange={bookingDataInputChangeHandler}
@@ -114,7 +124,10 @@ export default function Booking(props) {
         <label>pick a date</label>
         <DatePicker
           selected={startDate}
-          onChange={(date) => setStartDate(date)}
+          onChange={(date) =>
+            //setStartDate(date)}
+            setbookingData({ ...bookingData, date: date.toLocaleDateString(), start: date.toLocaleTimeString() })
+          }
           showTimeSelect
           minTime={setHours(setMinutes(new Date(), 0), 10)}
           maxTime={setHours(setMinutes(new Date(), 0), 17)}

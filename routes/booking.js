@@ -5,17 +5,36 @@ const Service = require("../models/Service");
 const User = require("../models/User");
 const Appointment = require("../models/Appointment");
 
-router.post("/book-appointment/:businessId", (req, res, next) => {
-  const businessId = req.params.businessId;
-  const { employee, date, service } = req.body;
+router.post("/book-appointment", (req, res, next) => {
+  const {
+    date,
+    start,
+    clientFirstName,
+    clientLastName,
+    clientPhoneNumber,
+    clientEmail,
+    chosenEmployee,
+    chosenService,
+  } = req.body;
 
   const newAppointment = new Appointment({
-    employee: employee,
+    employee: chosenEmployee,
     date: date,
-    service: service,
+    start: start,
+    service: chosenService,
+    client: {
+      firstName: clientFirstName,
+      lastName: clientLastName,
+      phone: clientPhoneNumber,
+      email: clientEmail,
+    },
   });
 
-  newAppointment.save().then(console.log("new appointment created"));
+  newAppointment
+    .save()
+    .then(
+      res.json({ message: "new appointment created", newApp: newAppointment })
+    );
 });
 
 //**GET SERVICES USING BUSINESS-ID */
