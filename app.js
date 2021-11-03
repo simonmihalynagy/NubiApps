@@ -83,7 +83,7 @@ app.use("/home", home);
 const business = require("./routes/business");
 app.use("/business", business);
 
-const appointment = require("./routes/appointment");
-app.use("appointment", appointment);
+const booking = require("./routes/booking");
+app.use("/booking", booking);
 
 module.exports = app;
