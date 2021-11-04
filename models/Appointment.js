@@ -4,9 +4,9 @@ const Schema = mongoose.Schema;
 const appointmentSchema = new Schema({
   employee: { type: Schema.Types.ObjectId, ref: "User" },
 
-  date: Date,
-  start: { type: Number },
-  duration: { type: Number, default: 1 },
+  date: String,
+  start: String,
+  duration: { type: String, default: "60" },
   cost: String,
   service: { type: Schema.Types.ObjectId, ref: "Service" },
   client: {

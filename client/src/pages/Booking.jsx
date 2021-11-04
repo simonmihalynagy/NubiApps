@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import DatePicker from "react-datepicker";
-import setHours from "date-fns/setHours";
-import setMinutes from "date-fns/setMinutes";
-
+// import DatePicker from "react-datepicker";
+// import setHours from "date-fns/setHours";
+// import setMinutes from "date-fns/setMinutes";
+import TimeSlotContainer from "../components/Booking/TimeSlotContainer";
 import "react-datepicker/dist/react-datepicker.css";
 
+//**props for timeslots container: businessStart, Employees appointments to check through, duration of services,  */
+
 export default function Booking(props) {
-  console.log(props.match.params);
+  //console.log(props.match.params);
   const [employees, setEmployees] = useState([]);
   const [services, setServices] = useState([]);
   //const [timeSlots, setTimeSlots] = useState(["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"]);
   const [isLoading, setIsLoading] = useState(false);
-  const [startDate, setStartDate] = useState(setHours(setMinutes(new Date(), 30), 17));
+
+  const [selectedDate, setSelectedDate] = useState("");
+
+  //console.log(startDate);
 
   //**IF THERE IS ONLY ONE OPTION IN "SELECT" INPUT, MAKE SURE TO SET THAT AS DEFAULT SELECTED ITEM!!!!!! */
 
@@ -56,7 +61,7 @@ export default function Booking(props) {
     getData();
   }, []);
 
-  console.log(startDate.toLocaleString());
+  //console.log(startDate.toLocaleString());
 
   const submitBookingHandler = (event) => {
     event.preventDefault();
@@ -122,17 +127,23 @@ export default function Booking(props) {
           })}
         </select>
         <label>pick a date</label>
-        <DatePicker
-          selected={startDate}
-          onChange={(date) =>
-            //setStartDate(date)}
-            setbookingData({ ...bookingData, date: date.toLocaleDateString(), start: date.toLocaleTimeString() })
-          }
-          showTimeSelect
-          minTime={setHours(setMinutes(new Date(), 0), 10)}
-          maxTime={setHours(setMinutes(new Date(), 0), 17)}
-          dateFormat="MMMM d, yyyy h:mm aa"
+        <label>Date</label>
+        <input
+          type="date"
+          max="2022-12-31"
+          value={selectedDate}
+          onChange={(event) => {
+            //console.log(event.target.value)
+            setSelectedDate(event.target.value);
+            setbookingData({
+              ...bookingData,
+              date: event.target.value,
+            });
+          }}
         />
+
+        <TimeSlotContainer inputChangeHandler={bookingDataInputChangeHandler} />
+
         <button className="mt-4 border-2 rounded border-red-600" type="submit">
           Book appointment!
         </button>

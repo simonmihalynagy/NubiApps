@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function EditBusiness(props) {
-  const [businessData, setBusinessData] = useState({});
+  const [businessData, setBusinessData] = useState({
+    name: "",
+    email: "",
+    location: "",
+  });
   //const [editBusinessError, setEditBusinessError] = useState("");
 
   // const getBusinessData = () => {
@@ -18,11 +22,11 @@ export default function EditBusiness(props) {
   const adminId = props.user._id;
   useEffect(() => {
     axios.get(`/business/get-business-data/${adminId}`).then((response) => {
-      console.log(
-        "this is the foundbusiness from edit business api call",
+      // console.log(
+      //   "this is the foundbusiness from edit business api call",
 
-        response.data
-      );
+      //   response.data
+      // );
       setBusinessData(response.data.foundBusiness[0]);
     });
   }, [adminId]);
@@ -49,6 +53,10 @@ export default function EditBusiness(props) {
         console.log(error);
       });
   };
+
+  if (!businessData.name) {
+    return <div>Loading..</div>;
+  }
 
   return (
     <div className="flex flex-col items-center ">
