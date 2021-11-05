@@ -50,10 +50,18 @@ export default function Booking(props) {
 
   const bookingDataInputChangeHandler = (event) => {
     const value = event.target.value;
-    setbookingData({
-      ...bookingData,
-      [event.target.name]: value,
-    });
+
+    if (event.target.name === "date") {
+      setbookingData({
+        ...bookingData,
+        [event.target.name]: new Date(value),
+      });
+    } else {
+      setbookingData({
+        ...bookingData,
+        [event.target.name]: value,
+      });
+    }
   };
 
   useEffect(() => {
@@ -68,6 +76,16 @@ export default function Booking(props) {
 
     axios.post("/booking/book-appointment", bookingData).then((response) => {
       console.log(response);
+      setbookingData({
+        date: "",
+        start: "",
+        clientFirstName: "",
+        clientLastName: "",
+        clientPhoneNumber: "",
+        clientEmail: "",
+        chosenEmployee: "",
+        chosenService: "",
+      });
     });
   };
 
@@ -130,18 +148,20 @@ export default function Booking(props) {
         <label>Date</label>
         <input
           type="date"
-          max="2022-12-31"
+          min="01-01-2021"
+          max="31-12-2022"
+          name="date"
           value={selectedDate}
-          onChange={(event) => {
+          onChange={bookingDataInputChangeHandler}
+        />
+        {/* (event) => {
             //console.log(event.target.value)
             setSelectedDate(event.target.value);
             setbookingData({
               ...bookingData,
               date: event.target.value,
             });
-          }}
-        />
-
+          } */}
         <TimeSlotContainer inputChangeHandler={bookingDataInputChangeHandler} />
 
         <button className="mt-4 border-2 rounded border-red-600" type="submit">

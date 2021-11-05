@@ -37,6 +37,8 @@ router.post("/book-appointment", (req, res, next) => {
     );
 });
 
+// router.get()
+
 //**GET SERVICES USING BUSINESS-ID */
 
 router.get("/get-services/:businessId", (req, res, next) => {
