@@ -3,6 +3,8 @@ const Schema = mongoose.Schema;
 
 const businessSchema = new Schema({
   admin: { type: Schema.Types.ObjectId, ref: "User" },
+  start: String,
+  finish: String,
   name: String,
   email: String,
   employees: [{ type: Schema.Types.ObjectId, ref: "User" }],

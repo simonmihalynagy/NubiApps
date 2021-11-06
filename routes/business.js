@@ -7,13 +7,7 @@ const bcrypt = require("bcryptjs");
 
 //** */ POST Business Data?   TESTED! */
 router.post("/create", (req, res, next) => {
-  const {
-    name,
-    adminId,
-    email,
-    //employees: employees,
-    location,
-  } = req.body;
+  const { name, adminId, email, start, finish, location } = req.body;
 
   Business.findOne({ admin: adminId }).then((foundBusiness) => {
     if (foundBusiness) {
@@ -26,7 +20,8 @@ router.post("/create", (req, res, next) => {
         admin: adminId,
         name: name,
         email: email,
-        //employees: [],
+        start: start,
+        finish: finish,
         location: location,
       });
 

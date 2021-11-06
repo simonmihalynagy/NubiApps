@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import TimePicker from "react-time-picker";
 
 export default function CreateBusiness(props) {
   //**STATES */
@@ -9,11 +10,26 @@ export default function CreateBusiness(props) {
     email: "",
     location: "",
     adminId: props.user._id,
+    start: "",
+    finish: "",
   });
 
   const [saveBusinessError, setSaveBusinessError] = useState("");
 
   //**HANDLERS */
+
+  const handleStartTimeInput = (time) => {
+    setBusinessData({
+      ...businessData,
+      start: time,
+    });
+  };
+  const handleClosingTimeInput = (time) => {
+    setBusinessData({
+      ...businessData,
+      finish: time,
+    });
+  };
 
   const inputChangeHandler = (event) => {
     const value = event.target.value;
@@ -50,42 +66,24 @@ export default function CreateBusiness(props) {
   return (
     <div className="flex flex-col items-center ">
       <h1>Please fill-out the form below to create your business:</h1>
-      {saveBusinessError && (
-        <div style={{ color: "red" }}>{saveBusinessError}</div>
-      )}
+      {saveBusinessError && <div style={{ color: "red" }}>{saveBusinessError}</div>}
       <form className="flex flex-col items-center" onSubmit={submitHandler}>
         <label>Name your business:</label>
-        <input
-          onChange={inputChangeHandler}
-          type="text"
-          name="name"
-          value={businessData.name}
-        />
+        <input onChange={inputChangeHandler} type="text" name="name" value={businessData.name} />
         <label>Please enter an email address:</label>
-        <input
-          onChange={inputChangeHandler}
-          type="text"
-          name="email"
-          value={businessData.email}
-        />
+        <input onChange={inputChangeHandler} type="text" name="email" value={businessData.email} />
         <label>Please enter the location on your business</label>
-        <input
-          onChange={inputChangeHandler}
-          type="text"
-          name="location"
-          value={businessData.location}
-        />
-        <button
-          className=" rounded bg-purple-600 text-white  border-2 border-black"
-          type="submit"
-        >
+        <input onChange={inputChangeHandler} type="text" name="location" value={businessData.location} />
+        <label>Choose your opening hour:</label>
+        <TimePicker name="start" value="00:00" onChange={handleStartTimeInput} />
+        <label>What time are you closing?</label>
+        <TimePicker name="finish" value="00:00" onChange={handleClosingTimeInput} />
+
+        <button className=" rounded bg-purple-600 text-white  border-2 border-black" type="submit">
           Create business!
         </button>
       </form>
-      <button
-        className=" rounded  border-2 border-black"
-        onClick={props.onBackToMainClick}
-      >
+      <button className=" rounded  border-2 border-black" onClick={props.onBackToMainClick}>
         Back to DashBoard
       </button>
     </div>

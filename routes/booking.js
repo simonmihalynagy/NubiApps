@@ -37,7 +37,12 @@ router.post("/book-appointment", (req, res, next) => {
     );
 });
 
-// router.get()
+router.get("/get-all-appointments/:employeeId", (req, res, next) => {
+  const employeeId = req.params.employeeId;
+  Appointment.find({ employee: employeeId }).then((foundAppointments) => {
+    res.json({ foundAppointments: foundAppointments });
+  });
+});
 
 //**GET SERVICES USING BUSINESS-ID */
 
