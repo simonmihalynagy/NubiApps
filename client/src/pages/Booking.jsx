@@ -15,6 +15,7 @@ export default function Booking(props) {
   //console.log(props.match.params);
   const [employees, setEmployees] = useState([]);
   const [services, setServices] = useState([]);
+  const [businessHours, setBusinessHours] = useState({});
 
   //const [timeSlots, setTimeSlots] = useState(["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"]);
   const [isLoading, setIsLoading] = useState(true);
@@ -40,16 +41,19 @@ export default function Booking(props) {
   const getData = () => {
     const servicesAPI = `/booking/get-services/${props.match.params.businessId}`;
     const employeesAPI = `/booking/employees/${props.match.params.businessId}`;
+    const businessAPI = `/booking/get-business-data/${props.match.params.businessId}`;
 
     const getServices = axios.get(servicesAPI);
     const getEmployees = axios.get(employeesAPI);
+    const getBusinessData = axios.get(businessAPI);
 
-    axios.all([getServices, getEmployees]).then(
+    axios.all([getServices, getEmployees, getBusinessData]).then(
       axios.spread((...allData) => {
         //console.log(allData);
 
         setServices(allData[0].data.foundServices);
         setEmployees(allData[1].data.foundStaffMembers);
+        setBusinessHours({ start: allData[2].data.foundBusiness.start, finish: allData[2].data.foundBusiness.finish });
         setIsLoading(false);
       })
     );
@@ -105,8 +109,9 @@ export default function Booking(props) {
   };
 
   const timeSlotClickHandler = (event) => {
+    console.log("hello from timeSlotClickHandler");
     setClickedTimeSlot(event.target.value);
-    props.inputChangeHandler(event);
+    bookingDataInputChangeHandler(event);
   };
 
   //console.log(services[0]._id);
@@ -195,6 +200,8 @@ export default function Booking(props) {
               bookingData.date !== "" ? (
                 <div>
                   <TimeSlotContainer
+                    businessHours={businessHours}
+                    klickedTimeSlot={clickedTimeSlot}
                     timeSlotClickHandler={timeSlotClickHandler}
                     inputChangeHandler={bookingDataInputChangeHandler}
                     chosenEmployee={bookingData.chosenEmployee}

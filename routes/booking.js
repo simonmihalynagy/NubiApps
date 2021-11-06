@@ -75,4 +75,14 @@ router.get("/employees/:businessId", (req, res, next) => {
     });
 });
 
+router.get("/get-business-data/:businessId", (req, res, next) => {
+  Business.findById(req.params.businessId)
+    .then((foundBusiness) => {
+      res.json({ foundBusiness: foundBusiness });
+    })
+    .catch((error) => {
+      res.json(error);
+    });
+});
+
 module.exports = router;

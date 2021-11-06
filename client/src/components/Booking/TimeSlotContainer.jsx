@@ -3,15 +3,15 @@ import axios from "axios";
 //**props: start (refers to business opening hour), finish (business closing hour), duration ( duration of service), exception(already booked timeslots, lunch breaks),  */
 
 export default function TimeSlotContainer(props) {
-  //console.log(props);
+  console.log(props);
   const [timeSlots, setTimeSlots] = useState([]);
-  const [clickedTimeSlot, setClickedTimeSlot] = useState("");
+
   // const [appointments, setAppointments] = useState([]);
 
   const createTimeSlots = (appointments) => {
     //const duration = parseInt("60") / 60;
-    const start = "10:00";
-    const finish = "17:00";
+    const start = props.businessHours.start;
+    const finish = props.businessHours.finish;
     const startInt = parseInt(start.slice(0, 2));
     const finishInt = parseInt(finish.slice(0, 2));
     const timeSlotsArray = [];
@@ -53,11 +53,6 @@ export default function TimeSlotContainer(props) {
     getAppointments();
   }, [props.chosenEmployee]);
 
-  const timeSlotClickHandler = (event) => {
-    setClickedTimeSlot(event.target.value);
-    props.inputChangeHandler(event);
-  };
-
   return (
     <div className="pt-4 flex justify-around">
       {/* {console.log("these are the appointments: ", appointments)} */}
@@ -65,10 +60,10 @@ export default function TimeSlotContainer(props) {
         return (
           <button
             type="button"
-            onClick={timeSlotClickHandler}
+            onClick={props.timeSlotClickHandler}
             name="start"
             value={timeSlot}
-            className={timeSlot === clickedTimeSlot ? "bg-purple-600 text-white" : undefined}
+            className={timeSlot === props.klickedTimeSlot ? "bg-purple-600 text-white" : undefined}
             key={timeSlot}
           >
             {timeSlot}
