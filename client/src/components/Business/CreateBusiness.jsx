@@ -47,6 +47,7 @@ export default function CreateBusiness(props) {
       .then((response) => {
         if (response.data.business) {
           console.log(response.data);
+          props.onBackToMainClick();
         } else {
           setSaveBusinessError(response.data.message);
         }

@@ -75,6 +75,8 @@ router.get("/employees/:businessId", (req, res, next) => {
     });
 });
 
+//**GET BUSINESS DATA */
+
 router.get("/get-business-data/:businessId", (req, res, next) => {
   Business.findById(req.params.businessId)
     .then((foundBusiness) => {

@@ -52,10 +52,16 @@ router.get("/get-business-data/:adminId", (req, res, next) => {
 //** */ PUT Business Data? TESTED!*/
 router.put("/edit-business-data/:businessId", (req, res, next) => {
   const businessId = req.params.businessId;
-  const { name, email, location } = req.body;
+  const { name, email, location, start, finish } = req.body;
   Business.findByIdAndUpdate(
     businessId,
-    { name: name, email: email, location: location },
+    {
+      name: name,
+      email: email,
+      location: location,
+      start: start,
+      finish: finish,
+    },
     { new: true }
   )
     .then((updatedBusiness) => {

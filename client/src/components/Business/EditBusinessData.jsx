@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import TimePicker from "react-time-picker";
 
 export default function EditBusiness(props) {
   const [businessData, setBusinessData] = useState({
     name: "",
     email: "",
     location: "",
+    start: "",
+    finish: "",
   });
   //const [editBusinessError, setEditBusinessError] = useState("");
 
@@ -20,6 +23,7 @@ export default function EditBusiness(props) {
   // };
 
   const adminId = props.user._id;
+
   useEffect(() => {
     axios.get(`/business/get-business-data/${adminId}`).then((response) => {
       // console.log(
@@ -29,13 +33,26 @@ export default function EditBusiness(props) {
       // );
       setBusinessData(response.data.foundBusiness[0]);
     });
-  }, [adminId]);
+  }, []);
 
   const inputChangeHandler = (event) => {
     const value = event.target.value;
     setBusinessData({
       ...businessData,
       [event.target.name]: value,
+    });
+  };
+
+  const handleStartTimeInput = (time) => {
+    setBusinessData({
+      ...businessData,
+      start: time,
+    });
+  };
+  const handleClosingTimeInput = (time) => {
+    setBusinessData({
+      ...businessData,
+      finish: time,
     });
   };
 
@@ -88,6 +105,10 @@ export default function EditBusiness(props) {
           value={businessData.location}
           placeholder={businessData.location}
         />
+        <label>Choose your opening hour:</label>
+        <TimePicker name="start" value={businessData.start} onChange={handleStartTimeInput} />
+        <label>What time are you closing?</label>
+        <TimePicker name="finish" value={businessData.finish} onChange={handleClosingTimeInput} />
         <button className=" rounded bg-purple-600 text-white  border-2 border-black" type="submit">
           Save changes!
         </button>
