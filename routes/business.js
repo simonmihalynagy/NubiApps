@@ -126,6 +126,13 @@ router.get("/get-services/:businessOwnerId", (req, res, next) => {
   });
 });
 
+router.get("/get-single-service/:serviceId", (req, res, next) => {
+  const serviceId = req.params.serviceId;
+  Service.findById(serviceId).then((foundService) => {
+    res.json({ foundService: foundService });
+  });
+});
+
 //** PUT SERVICES TESTED!*/
 router.put("/edit-service/:serviceId", (req, res, next) => {
   const serviceId = req.params.serviceId;

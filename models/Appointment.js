@@ -6,7 +6,7 @@ const appointmentSchema = new Schema({
 
   date: Date,
   start: String,
-  duration: { type: String, default: "60" },
+  duration: String,
   cost: String,
   service: { type: Schema.Types.ObjectId, ref: "Service" },
   client: {

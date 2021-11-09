@@ -198,20 +198,23 @@ export default function Booking(props) {
           } */}
             {bookingData.chosenEmployee !== "" ? (
               bookingData.date !== "" ? (
-                <div>
-                  <TimeSlotContainer
-                    businessHours={businessHours}
-                    klickedTimeSlot={clickedTimeSlot}
-                    timeSlotClickHandler={timeSlotClickHandler}
-                    inputChangeHandler={bookingDataInputChangeHandler}
-                    chosenEmployee={bookingData.chosenEmployee}
-                    chosenDate={bookingData.date}
-                    chosenService={bookingData.chosenService}
-                  />
-                  <button className="mt-4 border-2 rounded border-red-600" type="submit">
-                    Book appointment!
-                  </button>
-                </div>
+                bookingData.chosenService !== "" ? (
+                  <div>
+                    <TimeSlotContainer
+                      businessHours={businessHours}
+                      klickedTimeSlot={clickedTimeSlot}
+                      timeSlotClickHandler={timeSlotClickHandler}
+                      inputChangeHandler={bookingDataInputChangeHandler}
+                      chosenEmployee={bookingData.chosenEmployee}
+                      chosenDate={bookingData.date}
+                      chosenService={bookingData.chosenService}
+                      // selectedServiceDuration={services.filter(service=>service._id===bookingData.chosenService)}
+                    />
+                    <button className="mt-4 border-2 rounded border-red-600" type="submit">
+                      Book appointment!
+                    </button>
+                  </div>
+                ) : undefined
               ) : undefined
             ) : undefined}
           </form>
