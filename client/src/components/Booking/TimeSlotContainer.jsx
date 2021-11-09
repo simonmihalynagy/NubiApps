@@ -30,6 +30,7 @@ export default function TimeSlotContainer(props) {
 
   return (
     <div className="pt-4 flex justify-around">
+      {console.log(timeSlots)}
       {/* {console.log("these are the appointments: ", appointments)} */}
       {timeSlots.map((timeSlot) => {
         return (
