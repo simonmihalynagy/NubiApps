@@ -3,14 +3,14 @@ import BusinessSetupMain from "../components/Business/BusinessSetupMain";
 import ServicesSetup from "../components/Business/ServicesSetup";
 import StaffSetup from "../components/Business/StaffSetup";
 import EditBusinessData from "../components/Business/BusinessDataSetup";
-import ScheduleSetup from "../components/Business/ScheduleSetup";
+import MyCalendar from "../components/Business/Calendar";
 
 export default function BusinessSetup(props) {
   //console.log(props.user);
   const [isServices, setIsServices] = useState(false);
   const [isStaff, setIsStaff] = useState(false);
   const [isData, setIsData] = useState(false);
-  const [isSchedule, setIsSchedule] = useState(false);
+  const [isCalendar, setIsCalendar] = useState(false);
   const [isBusinessMain, setIsBusinessMain] = useState(true);
 
   const servicesClickHandler = () => {
@@ -18,7 +18,7 @@ export default function BusinessSetup(props) {
     setIsStaff(false);
     setIsData(false);
     setIsBusinessMain(false);
-    setIsSchedule(false);
+    setIsCalendar(false);
   };
 
   const staffClickHandler = () => {
@@ -26,7 +26,7 @@ export default function BusinessSetup(props) {
     setIsServices(false);
     setIsData(false);
     setIsBusinessMain(false);
-    setIsSchedule(false);
+    setIsCalendar(false);
   };
 
   const dataClickHandler = () => {
@@ -34,11 +34,11 @@ export default function BusinessSetup(props) {
     setIsServices(false);
     setIsStaff(false);
     setIsBusinessMain(false);
-    setIsSchedule(false);
+    setIsCalendar(false);
   };
 
   const scheduleClickHandler = () => {
-    setIsSchedule(true);
+    setIsCalendar(true);
     setIsData(false);
     setIsServices(false);
     setIsStaff(false);
@@ -47,7 +47,7 @@ export default function BusinessSetup(props) {
 
   const renderBusinessMain = () => {
     setIsBusinessMain(true);
-    setIsSchedule(false);
+    setIsCalendar(false);
     setIsData(false);
     setIsServices(false);
     setIsStaff(false);
@@ -63,27 +63,10 @@ export default function BusinessSetup(props) {
           onScheduleSetupClick={scheduleClickHandler}
         />
       )}
-      {isServices && (
-        <ServicesSetup
-          user={props.user}
-          onBackToMainClick={renderBusinessMain}
-        />
-      )}
-      {isStaff && (
-        <StaffSetup user={props.user} onBackToMainClick={renderBusinessMain} />
-      )}
-      {isData && (
-        <EditBusinessData
-          user={props.user}
-          onBackToMainClick={renderBusinessMain}
-        />
-      )}
-      {isSchedule && (
-        <ScheduleSetup
-          user={props.user}
-          onBackToMainClick={renderBusinessMain}
-        />
-      )}
+      {isServices && <ServicesSetup user={props.user} onBackToMainClick={renderBusinessMain} />}
+      {isStaff && <StaffSetup user={props.user} onBackToMainClick={renderBusinessMain} />}
+      {isData && <EditBusinessData user={props.user} onBackToMainClick={renderBusinessMain} />}
+      {isCalendar && <MyCalendar user={props.user} onBackToMainClick={renderBusinessMain} />}
     </React.Fragment>
   );
 }

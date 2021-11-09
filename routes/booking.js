@@ -7,6 +7,7 @@ const Appointment = require("../models/Appointment");
 
 router.post("/book-appointment", (req, res, next) => {
   const {
+    duration,
     date,
     start,
     clientFirstName,
@@ -19,6 +20,7 @@ router.post("/book-appointment", (req, res, next) => {
 
   const newAppointment = new Appointment({
     employee: chosenEmployee,
+    duration: duration,
     date: date,
     start: start,
     service: chosenService,

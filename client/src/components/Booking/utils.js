@@ -74,8 +74,6 @@ export const createFreeTimeBlocksBetweenAppointments = (appointments, businessHo
         });
       }
     } else if (i === appointments.length - 1) {
-      // console.log("git to the last appointment");
-      // console.log(businessHours.finish);
       if (appointments[i].finish !== businessHours.finish) {
         const lastAppointment = appointments[i];
         freeTimeBlocks.push({
@@ -100,10 +98,8 @@ export const createFreeTimeBlocksBetweenAppointments = (appointments, businessHo
 };
 
 export const createAllTimeSlotsInFreeTimeBlock = (interval, serviceDuration) => {
-  // console.log("serviceDuration from createAllTimeSlotsInFreeTimeBlock: ", serviceDuration);
-  // console.log("intervalDuration is: ", interval.duration);
   const numberOfSlots = interval.duration / serviceDuration;
-  // console.log("number of slots that can be created: ", numberOfSlots);
+
   const timeSlotArray = [];
   for (let i = 1; i <= numberOfSlots; i++) {
     if (i === 1) {
@@ -123,11 +119,7 @@ export const createTimeSlots = (appointmentsArr, chosenServiceDuration, business
   const businessHoursInMinutes = { start: businessOpening, finish: businessClosing };
 
   let timeSlotsArray = [];
-  // const possibleTimeSlotsInMinutes = createPossibleTimeSlotsInMinutes(
-  //   businessOpeningInt,
-  //   serviceDurationInt,
-  //   businessClosingInt
-  // );
+
   if (appointmentsArr.length === 0) {
     const allPossibleTimeSlots = createPossibleTimeSlotsInMinutes(businessOpening, serviceDuration, businessClosing);
     console.log(allPossibleTimeSlots);
@@ -141,11 +133,6 @@ export const createTimeSlots = (appointmentsArr, chosenServiceDuration, business
     timeSlotsArray = freeTimeBlocks.map((freeTimeBlock) => {
       if (freeTimeBlock.duration > serviceDuration) {
         return createAllTimeSlotsInFreeTimeBlock(freeTimeBlock, serviceDuration);
-        // console.log(
-        //   "these are the possible timeslots after finished mapping freeTimeBlocks: ",
-        //   timeSlotsArray,
-        //   typeof timeSlotsArray
-        // );
       } else {
         return;
       }
@@ -155,32 +142,6 @@ export const createTimeSlots = (appointmentsArr, chosenServiceDuration, business
       return convertToTimeSlotString(timeSlot);
     });
   }
-
-  // for (let i = businessOpening; i < businessClosing; i += serviceDuration) {
-  //   if (existingAppointments.length === 0) {
-  //     timeSlotsArray.push(convertToTimeSlotString(i));
-  //     console.log("timeSlotsArray first iteration if there wasnt any appointments", timeSlotsArray);
-  //   } else {
-  //     for (let j = 0; j < existingAppointments.length; j++) {
-  //       if (i >= existingAppointments[j].start) {
-  //         if (i <= existingAppointments[j].finish) {
-  //           i += serviceDuration;
-  //         }
-  //         // console.log(`this iteration is from j-loop after checking condition 1 and i's value is ${i}`);
-  //         // console.log("value of i from first condition in j loop after condition 1: ", i);
-  //       } else if (i + serviceDuration > existingAppointments[j].start) {
-  //         if (i + serviceDuration < existingAppointments[j].finish) {
-  //           i += serviceDuration;
-  //         }
-  //       } else {
-  //         // console.log(`this iteration is from j-loop and entered else statement and i's value is ${i}`);
-  //         // timeSlotsArray.push(convertToTimeSlotString(i));
-  //         continue;
-  //       }
-  //     }
-  //     timeSlotsArray.push(convertToTimeSlotString(i));
-  //   }
-  // }
 
   return timeSlotsArray;
 };

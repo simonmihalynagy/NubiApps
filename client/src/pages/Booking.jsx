@@ -69,6 +69,16 @@ export default function Booking(props) {
         ...bookingData,
         [event.target.name]: new Date(value),
       });
+    } else if (event.target.name === "chosenService") {
+      const service = services.find((service) => {
+        return service._id === event.target.value;
+      });
+      setbookingData({
+        ...bookingData,
+        duration: service.duration,
+        [event.target.name]: value,
+      });
+      console.log(service);
     } else {
       setbookingData({
         ...bookingData,
@@ -84,8 +94,6 @@ export default function Booking(props) {
     // eslint-disable-next-line
   }, []);
 
-  //console.log(startDate.toLocaleString());
-
   const submitBookingHandler = (event) => {
     event.preventDefault();
 
@@ -97,6 +105,7 @@ export default function Booking(props) {
         setbookingData({
           date: "",
           start: "",
+          duration: "",
           clientFirstName: "",
           clientLastName: "",
           clientPhoneNumber: "",
@@ -114,7 +123,6 @@ export default function Booking(props) {
     bookingDataInputChangeHandler(event);
   };
 
-  //console.log(services[0]._id);
   return (
     <div>
       {isLoading ? (
@@ -122,7 +130,10 @@ export default function Booking(props) {
       ) : (
         <div className="flex justify-center">
           {bookingError ? <h1 className="text-red-600">please provide all the necessary data!</h1> : undefined}
-          <form onSubmit={submitBookingHandler} className="flex flex-col w-2/5">
+          <form
+            onSubmit={submitBookingHandler}
+            className="focus:border-purple-600 flex flex-col w-2/5 text-center justify-items-center"
+          >
             <label>First Name</label>
             <input
               onChange={bookingDataInputChangeHandler}
@@ -169,7 +180,7 @@ export default function Booking(props) {
             <label>select a service</label>
 
             <select onChange={bookingDataInputChangeHandler} name="chosenService">
-              <option value="" defaultValue></option>
+              <option defaultValue value=""></option>
               {services.map((service) => {
                 return (
                   <option value={service._id} key={service._id}>
@@ -188,18 +199,11 @@ export default function Booking(props) {
               value={bookingData.date}
               onChange={bookingDataInputChangeHandler}
             />
-            {/* (event) => {
-            //console.log(event.target.value)
-            setSelectedDate(event.target.value);
-            setbookingData({
-              ...bookingData,
-              date: event.target.value,
-            });
-          } */}
+
             {bookingData.chosenEmployee !== "" ? (
               bookingData.date !== "" ? (
                 bookingData.chosenService !== "" ? (
-                  <div>
+                  <div className="flex flex-col justify-items-center">
                     <TimeSlotContainer
                       businessHours={businessHours}
                       klickedTimeSlot={clickedTimeSlot}
@@ -208,9 +212,11 @@ export default function Booking(props) {
                       chosenEmployee={bookingData.chosenEmployee}
                       chosenDate={bookingData.date}
                       chosenService={bookingData.chosenService}
-                      // selectedServiceDuration={services.filter(service=>service._id===bookingData.chosenService)}
                     />
-                    <button className="mt-4 border-2 rounded border-red-600" type="submit">
+                    <button
+                      className="mt-4 border-2 rounded border-purple-600 hover:text-white hover:bg-purple-600"
+                      type="submit"
+                    >
                       Book appointment!
                     </button>
                   </div>

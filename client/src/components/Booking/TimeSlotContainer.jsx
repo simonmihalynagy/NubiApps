@@ -29,12 +29,12 @@ export default function TimeSlotContainer(props) {
 
   useEffect(() => {
     getAppointments();
-  }, [props.chosenEmployee, props.chosenService, props.chosenData]);
+  }, [props.chosenService, props.chosenEmployee, props.chosenDate]);
 
   return (
-    <div className="pt-4 flex justify-around">
+    <div className="pt-4 grid grid-cols-5 justify-around">
       {console.log(timeSlots)}
-      {/* {console.log("these are the appointments: ", appointments)} */}
+
       {timeSlots.map((timeSlot) => {
         return (
           <button
@@ -42,7 +42,11 @@ export default function TimeSlotContainer(props) {
             onClick={props.timeSlotClickHandler}
             name="start"
             value={timeSlot}
-            className={timeSlot === props.klickedTimeSlot ? "bg-purple-600 text-white" : undefined}
+            className={
+              timeSlot === props.klickedTimeSlot
+                ? "mb-4 rounded border border-purple-600 bg-purple-600 text-white"
+                : "mb-4 rounded border border-purple-600 hover:bg-purple-600 hover:text-white"
+            }
             key={timeSlot}
           >
             {timeSlot}
