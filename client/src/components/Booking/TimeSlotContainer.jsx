@@ -17,16 +17,19 @@ export default function TimeSlotContainer(props) {
       axios.spread((...allData) => {
         const chosenServiceDuration = allData[0].data.foundService.duration;
         const appointments = allData[1].data.foundAppointments;
+
         // console.log("this is all data from getAppointments in booking page: ", allData[1].data.foundAppointments);
 
-        setTimeSlots(createTimeSlots(appointments, chosenServiceDuration, props.businessHours));
+        const newTimeSlots = createTimeSlots(appointments, chosenServiceDuration, props.businessHours);
+        // console.log("new timeslots from timeSlot container: ", newTimeSlots);
+        setTimeSlots(newTimeSlots);
       })
     );
   };
 
   useEffect(() => {
     getAppointments();
-  }, [props.chosenEmployee]);
+  }, [props.chosenEmployee, props.chosenService, props.chosenData]);
 
   return (
     <div className="pt-4 flex justify-around">

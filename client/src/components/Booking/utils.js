@@ -16,6 +16,7 @@ export const convertAppointmentTimes = (start, duration) => {
 export const convertToTimeSlotString = (timeSlot) => {
   const hours = Math.floor(timeSlot / 60);
   const minutes = timeSlot % 60;
+  // console.log(hours, minutes);
   if (minutes === 0) {
     return `${hours.toString()}:00`;
   } else {
@@ -38,8 +39,10 @@ export const convertToMinuteBasedTime = (time) => {
 export const createPossibleTimeSlotsInMinutes = (businessOpeningHour, serviceDuration, businessClosingHour) => {
   let timeSlotArray = [];
   for (let i = businessOpeningHour; i < businessClosingHour; i += serviceDuration) {
+    console.log(i);
     timeSlotArray.push(i);
   }
+  console.log(timeSlotArray);
   return timeSlotArray;
 };
 
@@ -71,8 +74,8 @@ export const createFreeTimeBlocksBetweenAppointments = (appointments, businessHo
         });
       }
     } else if (i === appointments.length - 1) {
-      console.log("git to the last appointment");
-      console.log(businessHours.finish);
+      // console.log("git to the last appointment");
+      // console.log(businessHours.finish);
       if (appointments[i].finish !== businessHours.finish) {
         const lastAppointment = appointments[i];
         freeTimeBlocks.push({
@@ -97,10 +100,10 @@ export const createFreeTimeBlocksBetweenAppointments = (appointments, businessHo
 };
 
 export const createAllTimeSlotsInFreeTimeBlock = (interval, serviceDuration) => {
-  console.log("serviceDuration from createAllTimeSlotsInFreeTimeBlock: ", serviceDuration);
-  console.log("intervalDuration is: ", interval.duration);
+  // console.log("serviceDuration from createAllTimeSlotsInFreeTimeBlock: ", serviceDuration);
+  // console.log("intervalDuration is: ", interval.duration);
   const numberOfSlots = interval.duration / serviceDuration;
-  console.log("number of slots that can be created: ", numberOfSlots);
+  // console.log("number of slots that can be created: ", numberOfSlots);
   const timeSlotArray = [];
   for (let i = 1; i <= numberOfSlots; i++) {
     if (i === 1) {
@@ -126,14 +129,15 @@ export const createTimeSlots = (appointmentsArr, chosenServiceDuration, business
   //   businessClosingInt
   // );
   if (appointmentsArr.length === 0) {
-    let allPossibleTimeSlots = createPossibleTimeSlotsInMinutes(businessOpening, serviceDuration, businessClosing);
+    const allPossibleTimeSlots = createPossibleTimeSlotsInMinutes(businessOpening, serviceDuration, businessClosing);
+    console.log(allPossibleTimeSlots);
     timeSlotsArray = allPossibleTimeSlots.map((timeSlot) => {
-      convertToTimeSlotString(timeSlot);
+      return convertToTimeSlotString(timeSlot);
     });
   } else {
     const existingAppointments = formatAppointments(appointmentsArr);
     const freeTimeBlocks = createFreeTimeBlocksBetweenAppointments(existingAppointments, businessHoursInMinutes);
-    console.log(freeTimeBlocks);
+    // console.log(freeTimeBlocks);
     timeSlotsArray = freeTimeBlocks.map((freeTimeBlock) => {
       if (freeTimeBlock.duration > serviceDuration) {
         return createAllTimeSlotsInFreeTimeBlock(freeTimeBlock, serviceDuration);
@@ -147,6 +151,9 @@ export const createTimeSlots = (appointmentsArr, chosenServiceDuration, business
       }
     })[0];
     console.log(timeSlotsArray);
+    timeSlotsArray = timeSlotsArray.map((timeSlot) => {
+      return convertToTimeSlotString(timeSlot);
+    });
   }
 
   // for (let i = businessOpening; i < businessClosing; i += serviceDuration) {
@@ -174,7 +181,6 @@ export const createTimeSlots = (appointmentsArr, chosenServiceDuration, business
   //     timeSlotsArray.push(convertToTimeSlotString(i));
   //   }
   // }
-  return timeSlotsArray.map((timeSlot) => {
-    return convertToTimeSlotString(timeSlot);
-  });
+
+  return timeSlotsArray;
 };
