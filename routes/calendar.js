@@ -38,4 +38,11 @@ router.get("/appointments/:adminId", (req, res, next) => {
 //** PUT APPOINTMENT */
 //** DELETE APPONTMENT */
 
+router.delete("/delete-appointment/:appId", (req, res, next) => {
+  const appId = req.params.appId;
+  Appointment.findByIdAndDelete(appId).then((response) => {
+    res.json({ message: "appointment deleted" });
+  });
+});
+
 module.exports = router;

@@ -31,22 +31,54 @@ export default function AddNewEmployee(props) {
 
   return (
     <React.Fragment>
-      <h1>Add New Employee:</h1>
-      <form className="flex flex-col items-center" onSubmit={submitHandler}>
-        <label>Choose a Username</label>
-        <input onChange={inputChangeHandler} type="text" name="username" value={employeeData.username} />
-        <label>Choose a password</label>
-        <input onChange={inputChangeHandler} type="password" name="password" value={employeeData.password} />
-        <label>First name of Employee</label>
-        <input onChange={inputChangeHandler} type="text" name="firstName" value={employeeData.firstName} />
-        <label>Last name of Employee</label>
-        <input onChange={inputChangeHandler} type="text" name="lastName" value={employeeData.lastName} />
-        <label>Email</label>
-        <input onChange={inputChangeHandler} type="text" name="email" value={employeeData.email} />
-        <button className="rounded border-2 border-black bg-purple-600 text-white" type="submit">
-          Add employee
-        </button>
-      </form>
+      <div className="flex flex-col justify-center items-center">
+        <h1 className="my-10 text-3xl">Add New Employee:</h1>
+        <form className="flex flex-col items-center" onSubmit={submitHandler}>
+          <label>Choose a Username</label>
+          <input
+            className="focus:outline-none focus:border-purple-600 rounded-lg"
+            onChange={inputChangeHandler}
+            type="text"
+            name="username"
+            value={employeeData.username}
+          />
+          <label>Choose a password</label>
+          <input
+            className="focus:outline-none focus:border-purple-600 rounded-lg"
+            onChange={inputChangeHandler}
+            type="password"
+            name="password"
+            value={employeeData.password}
+          />
+          <label>First name of Employee</label>
+          <input
+            className="focus:outline-none focus:border-purple-600 rounded-lg"
+            onChange={inputChangeHandler}
+            type="text"
+            name="firstName"
+            value={employeeData.firstName}
+          />
+          <label>Last name of Employee</label>
+          <input
+            className="focus:outline-none focus:border-purple-600 rounded-lg"
+            onChange={inputChangeHandler}
+            type="text"
+            name="lastName"
+            value={employeeData.lastName}
+          />
+          <label>Email</label>
+          <input
+            className="focus:outline-none focus:border-purple-600 rounded-lg"
+            onChange={inputChangeHandler}
+            type="text"
+            name="email"
+            value={employeeData.email}
+          />
+          <button className="rounded border-2 border-black bg-purple-600 text-white" type="submit">
+            Add employee
+          </button>
+        </form>
+      </div>
     </React.Fragment>
   );
 }

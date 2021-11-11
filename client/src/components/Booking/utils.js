@@ -33,7 +33,9 @@ export const getTheDay = (date) => {
   return parseInt(date.slice(8, 10));
 };
 export const getTheMonth = (date) => {
-  return parseInt(date.slice(5, 7));
+  const month = parseInt(date.slice(5, 7));
+  console.log("this is the month from getTheMonth: ", month);
+  return month;
 };
 
 export const convertToMinuteBasedTime = (time) => {
@@ -81,14 +83,16 @@ export const formatEventForCalendar = (app) => {
   const endMinutes = calculateEndMinutes(startMinutes, duration);
 
   console.log("endMinutes: ", endMinutes);
+  console.log("Month before calling new Date", Month);
 
   const appointment = {
     id: app.id,
     title: app.service,
-    start: new Date(Year, Month, Day, startHours, startMinutes, 0, 0),
-    end: new Date(Year, Month, Day, endHours, endMinutes, 0, 0),
+    start: new Date(Year, Month - 1, Day, startHours, startMinutes, 0),
+    end: new Date(Year, Month - 1, Day, endHours, endMinutes, 0),
     desc: `client: ${app.client.firstName} ${app.client.lastName}, service: ${app.service}`,
   };
+  // console.log("this appointment has just been formatted in format event for calendar", appointment);
 
   return appointment;
 };
