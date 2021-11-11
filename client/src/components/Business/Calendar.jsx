@@ -67,11 +67,18 @@ export default function MyCalendar(props) {
     setSelectedEvent(event.id);
   };
 
+  const selectSlotHandler = (event) => {
+    console.log(event.start);
+    setCurrentDate(event.start);
+  };
+
   return (
     <div>
       <h1>Schedule setup comes here</h1>
       <Calendar
         // toolbar={false}
+        selectable={true}
+        onSelectSlot={selectSlotHandler}
         views={["month", "week", "day"]}
         localizer={localizer}
         events={appointmentsRaw}
