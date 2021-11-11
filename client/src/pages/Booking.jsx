@@ -28,6 +28,7 @@ export default function Booking(props) {
   //**IF THERE IS ONLY ONE OPTION IN "SELECT" INPUT, MAKE SURE TO SET THAT AS DEFAULT SELECTED ITEM!!!!!! */
 
   const [bookingData, setbookingData] = useState({
+    business: props.match.params.businessId,
     date: "",
     start: "",
     clientFirstName: "",
@@ -100,9 +101,10 @@ export default function Booking(props) {
     if (Object.values(bookingData).includes("")) {
       setBookingError(true);
     } else {
-      axios.post("/booking/book-appointment", bookingData).then((response) => {
+      axios.post(`/booking/book-appointment/${props.match.params.businessId}`, bookingData).then((response) => {
         console.log(response);
         setbookingData({
+          ...bookingData,
           date: "",
           start: "",
           duration: "",

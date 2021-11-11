@@ -1,10 +1,3 @@
-//**to check if currently inspected appointment possibility falls into the range of start and finsh time of next appointment */
-
-export const range = (start, end) => {
-  if (start === end) return [start];
-  return [start, ...range(start + 1, end)];
-};
-
 //**convert existing appointment start and duration to objects based on minute values */
 
 export const convertAppointmentTimes = (start, duration) => {
@@ -24,16 +17,80 @@ export const convertToTimeSlotString = (timeSlot) => {
   }
 };
 
-export const getHours = (time) => {
+export const getTheHours = (time) => {
   return parseInt(time.slice(0, 2));
 };
 
-export const getMinutes = (time) => {
+export const getTheMinutes = (time) => {
   return parseInt(time.slice(3, 5));
 };
 
+export const getTheYear = (date) => {
+  return parseInt(date.slice(0, 4));
+};
+
+export const getTheDay = (date) => {
+  return parseInt(date.slice(8, 10));
+};
+export const getTheMonth = (date) => {
+  return parseInt(date.slice(5, 7));
+};
+
 export const convertToMinuteBasedTime = (time) => {
-  return getHours(time) * 60 + getMinutes(time);
+  return getTheHours(time) * 60 + getTheMinutes(time);
+};
+
+export const calculateEndMinutes = (startMinutes, duration) => {
+  let endMinutes = 0;
+  if (duration === 60) {
+    endMinutes = startMinutes;
+  } else if (startMinutes + duration === 60) {
+    endMinutes = 0;
+  } else if (duration < 60) {
+    endMinutes = startMinutes + duration;
+  } else if (duration > 60) {
+    endMinutes = startMinutes + (duration - 60);
+  }
+  return endMinutes;
+};
+
+export const calculateEndHours = (startHours, startMinutes, duration) => {
+  let endHours = 0;
+  if (duration < 60) {
+    if (startMinutes + duration === 60) {
+      endHours = startHours + 1;
+    } else if (startMinutes + duration > 60) {
+      endHours = startHours + 1;
+    } else {
+      endHours = startHours;
+    }
+  } else {
+    endHours = startHours + 1;
+  }
+  return endHours;
+};
+
+export const formatEventForCalendar = (app) => {
+  const duration = parseInt(app.duration);
+  const Year = getTheYear(app.date);
+  const Month = getTheMonth(app.date);
+  const Day = getTheDay(app.date);
+  const startHours = getTheHours(app.start);
+  const startMinutes = getTheMinutes(app.start);
+  const endHours = calculateEndHours(startHours, startMinutes, duration);
+  const endMinutes = calculateEndMinutes(startMinutes, duration);
+
+  console.log("endMinutes: ", endMinutes);
+
+  const appointment = {
+    id: app.id,
+    title: app.service,
+    start: new Date(Year, Month, Day, startHours, startMinutes, 0, 0),
+    end: new Date(Year, Month, Day, endHours, endMinutes, 0, 0),
+    desc: `client: ${app.client.firstName} ${app.client.lastName}, service: ${app.service}`,
+  };
+
+  return appointment;
 };
 
 export const createPossibleTimeSlotsInMinutes = (businessOpeningHour, serviceDuration, businessClosingHour) => {

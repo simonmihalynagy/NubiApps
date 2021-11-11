@@ -5,7 +5,8 @@ const Service = require("../models/Service");
 const User = require("../models/User");
 const Appointment = require("../models/Appointment");
 
-router.post("/book-appointment", (req, res, next) => {
+router.post("/book-appointment/:businessId", (req, res, next) => {
+  const businessId = req.params.businessId;
   const {
     duration,
     date,
@@ -19,6 +20,7 @@ router.post("/book-appointment", (req, res, next) => {
   } = req.body;
 
   const newAppointment = new Appointment({
+    business: businessId,
     employee: chosenEmployee,
     duration: duration,
     date: date,

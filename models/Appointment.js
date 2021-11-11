@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const appointmentSchema = new Schema({
   employee: { type: Schema.Types.ObjectId, ref: "User" },
-
+  business: { type: Schema.Types.ObjectId, ref: "Business" },
   date: Date,
   start: String,
   duration: String,

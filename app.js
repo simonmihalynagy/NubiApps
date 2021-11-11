@@ -86,4 +86,7 @@ app.use("/business", business);
 const booking = require("./routes/booking");
 app.use("/booking", booking);
 
+const calendar = require("./routes/calendar");
+app.use("/calendar", calendar);
+
 module.exports = app;

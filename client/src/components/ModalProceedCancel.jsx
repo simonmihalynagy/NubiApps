@@ -1,6 +1,6 @@
 import { XIcon } from "@heroicons/react/solid";
 
-export default function Modal({ show, proceed, cancel, description, title }) {
+export default function ModalProceedCancel({ show, proceed, cancel, description, title }) {
   const closeModalClickHandler = () => {
     show();
   };

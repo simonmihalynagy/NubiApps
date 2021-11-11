@@ -7,7 +7,7 @@ export default function ModalProceedCancel({ show, description }) {
 
   const proceedClickHandler = (stg) => {
     //confirm action that triggered modal
-    Show();
+    show();
   };
 
   return (
@@ -20,7 +20,9 @@ export default function ModalProceedCancel({ show, description }) {
           <p>{description}</p>
         </div>
         <div className="flex justify-center mt-10">
-          <button className="px-3 py-1 border-2 border-black text-white bg-green-600">Proceed</button>
+          <button onClick={proceedClickHandler} className="px-3 py-1 border-2 border-black text-white bg-green-600">
+            Proceed
+          </button>
         </div>
       </div>
     </div>
