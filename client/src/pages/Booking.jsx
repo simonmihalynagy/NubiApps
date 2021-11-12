@@ -6,6 +6,7 @@ import Select from "react-select";
 // import setMinutes from "date-fns/setMinutes";
 import TimeSlotContainer from "../components/Booking/TimeSlotContainer";
 import "react-datepicker/dist/react-datepicker.css";
+import ModalConfirm from "../components/ModalConfirm";
 
 //**props for timeslots container: businessStart, Employees appointments to check through, duration of services,  */
 
@@ -19,6 +20,7 @@ export default function Booking(props) {
 
   //const [timeSlots, setTimeSlots] = useState(["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"]);
   const [isLoading, setIsLoading] = useState(true);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedEmployeeId, setSelectedEmployeeId] = useState("");
@@ -115,20 +117,30 @@ export default function Booking(props) {
           chosenEmployee: "",
           chosenService: "",
         });
+        confirmModalDisplayHandler();
       });
     }
   };
 
   const timeSlotClickHandler = (event) => {
-    console.log("hello from timeSlotClickHandler");
+    // console.log("hello from timeSlotClickHandler");
     setClickedTimeSlot(event.target.value);
     bookingDataInputChangeHandler(event);
   };
 
+  const confirmModalDisplayHandler = () => {
+    setShowConfirm(!showConfirm);
+  };
+
+  const confirmMessage = "Appointment booked, happy days!";
+
   return (
     <div>
+      {showConfirm ? <ModalConfirm show={confirmModalDisplayHandler} title={confirmMessage} /> : undefined}
       {isLoading ? (
-        <h1>loading!!!</h1>
+        <div>
+          <h1>loading!!!!!</h1>
+        </div>
       ) : (
         <div className="flex justify-center">
           {bookingError ? <h1 className="text-red-600">please provide all the necessary data!</h1> : undefined}

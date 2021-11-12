@@ -57,6 +57,7 @@ export default function BusinessSetup(props) {
     <React.Fragment>
       {isBusinessMain && (
         <BusinessSetupMain
+          userId={props.user._id}
           onDataSetupClick={dataClickHandler}
           onStaffSetupClick={staffClickHandler}
           onServicesSetupClick={servicesClickHandler}

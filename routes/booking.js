@@ -38,7 +38,10 @@ router.post("/book-appointment/:businessId", (req, res, next) => {
     .save()
     .then(
       res.json({ message: "new appointment created", newApp: newAppointment })
-    );
+    )
+    .catch((error) => {
+      res.json({ error: error });
+    });
 });
 
 //**GET ALL APPOINTMENTS OF EMPLOYEE */
