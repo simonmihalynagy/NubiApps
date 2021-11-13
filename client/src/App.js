@@ -84,7 +84,7 @@ function App(props) {
           );
         }}
       />
-      <Route exact path="/booking/:businessId" render={(props) => <Booking {...props} user={currentUser} />} />
+      <Route exact path="/booking/:businessId" render={(props) => <Booking {...props} />} />
     </Router>
   );
 }

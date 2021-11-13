@@ -18,7 +18,9 @@ export default function TimeSlotContainer(props) {
         const chosenServiceDuration = allData[0].data.foundService.duration;
         const appointments = allData[1].data.foundAppointments;
 
-        // console.log("this is all data from getAppointments in booking page: ", allData[1].data.foundAppointments);
+        console.log("appointments: ", appointments, "chosenService Duration: ", chosenServiceDuration);
+
+        console.log("this is all data from getAppointments in booking page: ", allData[1].data.foundAppointments);
 
         const newTimeSlots = createTimeSlots(appointments, chosenServiceDuration, props.businessHours);
         // console.log("new timeslots from timeSlot container: ", newTimeSlots);

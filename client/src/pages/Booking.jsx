@@ -13,7 +13,7 @@ import ModalConfirm from "../components/ModalConfirm";
 export default function Booking(props) {
   const [clickedTimeSlot, setClickedTimeSlot] = useState("");
   const [bookingError, setBookingError] = useState(false);
-  //console.log(props.match.params);
+  console.log("props.match . params :", props.match.params);
   const [employees, setEmployees] = useState([]);
   const [services, setServices] = useState([]);
   const [businessHours, setBusinessHours] = useState({});

@@ -125,34 +125,63 @@ export const createFreeTimeBlocksBetweenAppointments = (appointments, businessHo
   let freeTimeBlocks = [];
 
   for (let i = 0; i < appointments.length; i++) {
-    if (i === 0) {
-      if (appointments[i].start !== businessHours.start) {
-        const firstAppointment = appointments[i];
+    if (appointments.length === 1) {
+      if (appointments[i].start === businessHours.start) {
+        const appointment = appointments[i];
         freeTimeBlocks.push({
-          start: businessHours.start,
-          duration: firstAppointment.start - businessHours.start,
-          finish: firstAppointment.start,
-        });
-      }
-    } else if (i === appointments.length - 1) {
-      if (appointments[i].finish !== businessHours.finish) {
-        const lastAppointment = appointments[i];
-        freeTimeBlocks.push({
-          start: lastAppointment.finish,
-          duration: businessHours.finish - lastAppointment.finish,
+          start: appointment.finish,
+          duration: businessHours.finish - appointment.finish,
           finish: businessHours.finish,
         });
+      } else if (appointments[i].finish === businessHours.finish) {
+        const appointment = appointments[i];
+        freeTimeBlocks.push({
+          start: businessHours.start,
+          duration: appointment.start - businessHours.start,
+          finish: appointment.start,
+        });
+      } else {
+        const appointment = appointments[i];
+        freeTimeBlocks.push(
+          {
+            start: businessHours.start,
+            duration: appointment.start - businessHours.start,
+            finish: appointment.start,
+          },
+          { start: appointment.finish, duration: businessHours.finish - appointment.finish, finish: appointment.finish }
+        );
       }
     } else {
-      const currentAppointment = appointments[i];
-      const nextAppointment = appointments[i + 1];
-      if (currentAppointment.finish < nextAppointment.start)
-        freeTimeBlocks.push({
-          start: currentAppointment.finish,
-          duration: nextAppointment.start - currentAppointment.finish,
-        });
+      if (i === 0) {
+        if (appointments[i].start !== businessHours.start) {
+          const firstAppointment = appointments[i];
+          freeTimeBlocks.push({
+            start: businessHours.start,
+            duration: firstAppointment.start - businessHours.start,
+            finish: firstAppointment.start,
+          });
+        }
+      } else if (i === appointments.length - 1) {
+        if (appointments[i].finish !== businessHours.finish) {
+          const lastAppointment = appointments[i];
+          freeTimeBlocks.push({
+            start: lastAppointment.finish,
+            duration: businessHours.finish - lastAppointment.finish,
+            finish: businessHours.finish,
+          });
+        }
+      } else {
+        const currentAppointment = appointments[i];
+        const nextAppointment = appointments[i + 1];
+        if (currentAppointment.finish < nextAppointment.start)
+          freeTimeBlocks.push({
+            start: currentAppointment.finish,
+            duration: nextAppointment.start - currentAppointment.finish,
+          });
+      }
     }
   }
+  console.log("these are the free time blocks: ", freeTimeBlocks);
   return freeTimeBlocks.sort((block1, block2) => {
     return block1.start - block2.start;
   });
@@ -179,6 +208,8 @@ export const createTimeSlots = (appointmentsArr, chosenServiceDuration, business
   const businessClosing = convertToMinuteBasedTime(businessHours.finish);
   const businessHoursInMinutes = { start: businessOpening, finish: businessClosing };
 
+  console.log("appointmentsArr from createTimeSlots: ", appointmentsArr);
+
   let timeSlotsArray = [];
 
   if (appointmentsArr.length === 0) {
@@ -189,6 +220,7 @@ export const createTimeSlots = (appointmentsArr, chosenServiceDuration, business
     });
   } else {
     const existingAppointments = formatAppointments(appointmentsArr);
+    console.log("existingAppointments: ", existingAppointments);
     const freeTimeBlocks = createFreeTimeBlocksBetweenAppointments(existingAppointments, businessHoursInMinutes);
     // console.log(freeTimeBlocks);
     timeSlotsArray = freeTimeBlocks.map((freeTimeBlock) => {
