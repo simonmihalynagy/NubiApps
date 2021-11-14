@@ -75,7 +75,7 @@ export default function AddNewService(props) {
           step="1"
           max="100"
         />
-        <button className="rounded border-2 border-black bg-purple-600 text-white" type="submit">
+        <button className="mt-5 rounded border-2 border-black bg-purple-600 text-white" type="submit">
           Add Service
         </button>
       </form>

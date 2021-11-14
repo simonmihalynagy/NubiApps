@@ -37,8 +37,8 @@ export default function ServicesSetup(props) {
 
   return (
     <div>
-      <div className="flex">
-        <div className="flex flex-col items-center w-2/4">
+      <div className="flex flex-col items-center">
+        <div className="mb-10 flex flex-col items-center w-2/4">
           <h1>Services</h1>
           {services.map((service) => (
             <div key={service._id}>
@@ -69,10 +69,13 @@ export default function ServicesSetup(props) {
             <AddNewService setIsSubmitting={setIsSubmitting} user={props.user} />
           )}
         </div>
+        <button
+          className="mt-10 rounded border-2 border-black bg-purple-600 text-white"
+          onClick={props.onBackToMainClick}
+        >
+          Back to DashBoard
+        </button>
       </div>
-      <button className="rounded border-2 border-black bg-purple-600 text-white" onClick={props.onBackToMainClick}>
-        Back to DashBoard
-      </button>
     </div>
   );
 }

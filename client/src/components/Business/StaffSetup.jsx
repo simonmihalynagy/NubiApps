@@ -36,8 +36,8 @@ export default function StaffSetup(props) {
 
   return (
     <div>
-      <div className="flex justify-between">
-        <div className="flex flex-col items-center w-2/4">
+      <div className="flex flex-col">
+        <div className="mx-auto flex flex-col items-center w-2/4">
           <h1 className="my-10 text-3xl">Employees</h1>
           {employees.map((employee) => (
             <div key={employee._id}>
@@ -52,11 +52,9 @@ export default function StaffSetup(props) {
             </div>
           ))}
         </div>
-        <div className="flex flex-row justify-center w-2/4">
+        <div className="mx-auto flex flex-row justify-center w-2/4">
           <AddNewEmployee setIsSubmitting={setIsSubmitting} user={props.user} />
         </div>
-      </div>
-      <div classname="mx-auto flex justify-center">
         <button
           className=" mx-auto rounded border-2 border-black bg-purple-600 text-white"
           onClick={props.onBackToMainClick}
@@ -64,6 +62,7 @@ export default function StaffSetup(props) {
           Back to DashBoard
         </button>
       </div>
+      <div classname="mx-auto flex justify-center"></div>
     </div>
   );
 }

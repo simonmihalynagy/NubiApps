@@ -46,39 +46,22 @@ export default function Login(props) {
   return (
     <div className="flex justify-center ">
       <div className="flex flex-col items-center ">
-        <h1 className="flex content-center text-2xl mt-10 mb-10">
-          Please Log-In!
-        </h1>
+        <h1 className="flex content-center text-2xl mt-10 mb-10">Please Log-In!</h1>
         {loginError && <div style={{ color: "red" }}>{loginError}</div>}
 
         <form className="flex flex-col items-center" onSubmit={submitHandler}>
           <label>Enter Username</label>
-          <input
-            onChange={inputChangeHangler}
-            type="text"
-            name="username"
-            value={credentials.username}
-          />
+          <input onChange={inputChangeHangler} type="text" name="username" value={credentials.username} required />
           <label>Enter Password</label>
-          <input
-            onChange={inputChangeHangler}
-            type="password"
-            name="password"
-            value={credentials.password}
-          />
+          <input onChange={inputChangeHangler} type="password" name="password" value={credentials.password} required />
 
-          <button
-            className="w-4/12 rounded bg-purple-600 text-white mt-10 border-2 border-black"
-            type="submit"
-          >
-            Sign in!
+          <button className="w-4/12 rounded bg-purple-600 text-white mt-10 border-2 border-black" type="submit">
+            Log-in!
           </button>
         </form>
-        <p className="pt-4 ">or sign-up first:</p>
+        <p className="pt-4 ">Or sign-up first:</p>
         <Link to="/signup">
-          <button className=" rounded bg-purple-600 text-white  border-2 border-black">
-            Sign-Up
-          </button>
+          <button className=" rounded bg-purple-600 text-white  border-2 border-black">Sign-Up</button>
         </Link>
       </div>
     </div>

@@ -15,6 +15,7 @@ export default function Signup(props) {
 
   const inputChangeHandler = (event) => {
     const value = event.target.value;
+
     setCredentials({
       ...credentials,
       [event.target.name]: value,
@@ -39,59 +40,30 @@ export default function Signup(props) {
     <React.Fragment>
       <div className="flex flex-col items-center">
         <div>
-          <h1 className="pt-10 text-2xl">
-            Please Fill-Out The Form Below, To Register!
-          </h1>
+          <h1 className="text-center pt-10 text-2xl">Please Fill-Out The Form Below, To Register!</h1>
         </div>
         <div className="pt-10">
           <form className="flex flex-col items-center" onSubmit={submitHandler}>
             <label>Your First Name</label>
-            <input
-              onChange={inputChangeHandler}
-              type="text"
-              name="firstName"
-              value={credentials.firstName}
-            />
+            <input onChange={inputChangeHandler} type="text" name="firstName" value={credentials.firstName} required />
             <label>Your Last Name</label>
-            <input
-              onChange={inputChangeHandler}
-              type="text"
-              name="lastName"
-              value={credentials.lastName}
-            />
+            <input onChange={inputChangeHandler} type="text" name="lastName" value={credentials.lastName} required />
             <label>Choose A Username</label>
-            <input
-              onChange={inputChangeHandler}
-              type="text"
-              name="username"
-              value={credentials.username}
-            />
+            <input onChange={inputChangeHandler} type="text" name="username" value={credentials.username} required />
             <label>Choose A Password</label>
             <input
               onChange={inputChangeHandler}
               type="password"
               name="password"
               value={credentials.password}
+              required
             />
             <label>Your Phone Number</label>
-            <input
-              onChange={inputChangeHandler}
-              type="text"
-              name="phone"
-              value={credentials.phone}
-            />
+            <input onChange={inputChangeHandler} type="text" name="phone" value={credentials.phone} required />
             <label>Your E-mail Address</label>
-            <input
-              onChange={inputChangeHandler}
-              type="email"
-              name="email"
-              value={credentials.email}
-            />
+            <input onChange={inputChangeHandler} type="email" name="email" value={credentials.email} required />
 
-            <button
-              className="rounded bg-purple-600 text-white mt-10 border-2 border-black"
-              type="submit"
-            >
+            <button className="rounded bg-purple-600 text-white mt-10 border-2 border-black" type="submit">
               Sign Up!
             </button>
           </form>

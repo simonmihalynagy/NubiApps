@@ -65,26 +65,26 @@ export default function CreateBusiness(props) {
   };
 
   return (
-    <div className="flex flex-col items-center ">
-      <h1>Please fill-out the form below to create your business:</h1>
+    <div className="flex flex-col items-center text-center ">
+      <h1 className="text-2xl mb-10">Please fill-out the form below to create your business:</h1>
       {saveBusinessError && <div style={{ color: "red" }}>{saveBusinessError}</div>}
       <form className="flex flex-col items-center" onSubmit={submitHandler}>
         <label>Name your business:</label>
-        <input onChange={inputChangeHandler} type="text" name="name" value={businessData.name} />
+        <input onChange={inputChangeHandler} type="text" name="name" value={businessData.name} required />
         <label>Please enter an email address:</label>
-        <input onChange={inputChangeHandler} type="text" name="email" value={businessData.email} />
+        <input onChange={inputChangeHandler} type="text" name="email" value={businessData.email} required />
         <label>Please enter the location on your business</label>
-        <input onChange={inputChangeHandler} type="text" name="location" value={businessData.location} />
+        <input onChange={inputChangeHandler} type="text" name="location" value={businessData.location} required />
         <label>Choose your opening hour:</label>
-        <TimePicker name="start" value="00:00" onChange={handleStartTimeInput} />
+        <TimePicker name="start" value="00:00" onChange={handleStartTimeInput} required />
         <label>What time are you closing?</label>
-        <TimePicker name="finish" value="00:00" onChange={handleClosingTimeInput} />
+        <TimePicker name="finish" value="00:00" onChange={handleClosingTimeInput} required />
 
-        <button className=" rounded bg-purple-600 text-white  border-2 border-black" type="submit">
+        <button className=" rounded bg-purple-600 text-white  border-2 border-black mt-5" type="submit">
           Create business!
         </button>
       </form>
-      <button className=" rounded  border-2 border-black" onClick={props.onBackToMainClick}>
+      <button className=" rounded  border-2 border-black mt-5" onClick={props.onBackToMainClick}>
         Back to DashBoard
       </button>
     </div>
