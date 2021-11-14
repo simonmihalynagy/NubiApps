@@ -223,38 +223,73 @@ export const createAllTimeSlotsInFreeTimeBlock = (interval, serviceDuration) => 
   return timeSlotArray;
 };
 
+export const collides = (currentMinute, currentAppointment, chosenServiceDuration) => {
+  // console.log(currentAppointment);
+  const start = currentMinute;
+  const end = currentMinute + chosenServiceDuration;
+  const appStart = currentAppointment.start;
+  const appEnd = currentAppointment.finish;
+
+  console.log(start, end, appStart, appEnd);
+
+  if (end === appStart || start === appEnd) {
+    return false;
+  } else if (end < appStart || start > appEnd) {
+    return false;
+  } else {
+    return true;
+  }
+};
+
 export const createTimeSlots = (appointmentsArr, chosenServiceDuration, businessHours) => {
   const serviceDuration = parseInt(chosenServiceDuration);
   const businessOpening = convertToMinuteBasedTime(businessHours.start);
   const businessClosing = convertToMinuteBasedTime(businessHours.finish);
   const businessHoursInMinutes = { start: businessOpening, finish: businessClosing };
+  const existingAppointments = formatAppointments(appointmentsArr);
 
-  console.log("appointmentsArr from createTimeSlots: ", appointmentsArr);
+  // console.log("appointmentsArr from createTimeSlots: ", appointmentsArr);
+  // console.log("existing apppontments are: ", existingAppointments);
 
   let timeSlotsArray = [];
 
   if (appointmentsArr.length === 0) {
     const allPossibleTimeSlots = createPossibleTimeSlotsInMinutes(businessOpening, serviceDuration, businessClosing);
-    console.log(allPossibleTimeSlots);
+    // console.log(allPossibleTimeSlots);
     timeSlotsArray = allPossibleTimeSlots;
   } else {
-    const existingAppointments = formatAppointments(appointmentsArr);
-    console.log("existingAppointments: ", existingAppointments);
-    const freeTimeBlocks = createFreeTimeBlocksBetweenAppointments(existingAppointments, businessHoursInMinutes);
-    console.log(freeTimeBlocks);
-    timeSlotsArray = freeTimeBlocks
-      .map((freeTimeBlock) => {
-        if (freeTimeBlock.duration > serviceDuration) {
-          return createAllTimeSlotsInFreeTimeBlock(freeTimeBlock, serviceDuration);
-        } else {
-          return;
-        }
-      })
-      .flat();
-    console.log(timeSlotsArray);
+    for (let i = businessOpening; i < businessClosing; i++) {
+      // console.log(i);
+
+      let result = existingAppointments.some((app) => {
+        return collides(i, app, serviceDuration);
+      });
+      console.log(result);
+      if (!result) {
+        timeSlotsArray.push(i);
+        i += serviceDuration - 1;
+      }
+    }
   }
 
-  return timeSlotsArray.map((timeSlot) => {
-    return convertToTimeSlotString(timeSlot);
-  });
+  // else {
+  //   const existingAppointments = formatAppointments(appointmentsArr);
+  //   console.log("existingAppointments: ", existingAppointments);
+  //   const freeTimeBlocks = createFreeTimeBlocksBetweenAppointments(existingAppointments, businessHoursInMinutes);
+  //   console.log(freeTimeBlocks);
+  //   timeSlotsArray = freeTimeBlocks
+  //     .map((freeTimeBlock) => {
+  //       if (freeTimeBlock.duration > serviceDuration) {
+  //         return createAllTimeSlotsInFreeTimeBlock(freeTimeBlock, serviceDuration);
+  //       } else {
+  //         return;
+  //       }
+  //     })
+  //     .flat();
+  //   console.log(timeSlotsArray);
+  // }
+
+  // console.log(timeSlotsArray);
+
+  return timeSlotsArray.map((timeSlot) => convertToTimeSlotString(timeSlot));
 };

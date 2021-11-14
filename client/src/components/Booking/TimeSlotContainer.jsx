@@ -4,7 +4,7 @@ import { createTimeSlots } from "./utils";
 //**props: start (refers to business opening hour), finish (business closing hour), duration ( duration of service), exception(already booked timeslots, lunch breaks),  */
 
 export default function TimeSlotContainer(props) {
-  console.log(props);
+  // console.log(props);
   const [timeSlots, setTimeSlots] = useState([]);
 
   const getAppointments = () => {
@@ -18,9 +18,9 @@ export default function TimeSlotContainer(props) {
         const chosenServiceDuration = allData[0].data.foundService.duration;
         const appointments = allData[1].data.foundAppointments;
 
-        console.log("appointments: ", appointments, "chosenService Duration: ", chosenServiceDuration);
+        // console.log("appointments: ", appointments, "chosenService Duration: ", chosenServiceDuration);
 
-        console.log("this is all data from getAppointments in booking page: ", allData[1].data.foundAppointments);
+        // console.log("this is all data from getAppointments in booking page: ", allData[1].data.foundAppointments);
 
         const newTimeSlots = createTimeSlots(appointments, chosenServiceDuration, props.businessHours);
         // console.log("new timeslots from timeSlot container: ", newTimeSlots);
@@ -35,7 +35,7 @@ export default function TimeSlotContainer(props) {
 
   return (
     <div className="pt-4 grid grid-cols-5 justify-around">
-      {console.log(timeSlots)}
+      {/* {console.log(timeSlots)} */}
 
       {timeSlots.map((timeSlot) => {
         return (
