@@ -245,7 +245,7 @@ export const createTimeSlots = (appointmentsArr, chosenServiceDuration, business
   const serviceDuration = parseInt(chosenServiceDuration);
   const businessOpening = convertToMinuteBasedTime(businessHours.start);
   const businessClosing = convertToMinuteBasedTime(businessHours.finish);
-  const businessHoursInMinutes = { start: businessOpening, finish: businessClosing };
+  // const businessHoursInMinutes = { start: businessOpening, finish: businessClosing };
   const existingAppointments = formatAppointments(appointmentsArr);
 
   // console.log("appointmentsArr from createTimeSlots: ", appointmentsArr);
