@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, BrowserRouter as Router, Redirect } from "react-router-dom";
-
+import axios from "axios";
 import Home from "./pages/Home";
 import Signup from "./components/Authentication/Signup";
 import Login from "./components/Authentication/Login";
@@ -10,10 +10,35 @@ import Account from "./pages/Account";
 import EditAccount from "./pages/EditAccount";
 import BusinessSetup from "./pages/BusinessSetup";
 import Booking from "./pages/Booking";
-
+import BusinessSetupMain from "./components/Business/BusinessSetupMain";
+import BusinessDataSetup from "./components/Business/BusinessDataSetup";
+import StaffSetup from "./components/Business/StaffSetup";
+import MyCalendar from "./components/Business/Calendar";
+import ServiceSetup from "./components/Business/ServicesSetup";
 function App(props) {
   //*state to manage currently logged in user*/
   const [currentUser, setCurrentUser] = useState(props.user);
+  const [businessId, setBusinessId] = useState("");
+
+  const [hasBusiness, setHasBusiness] = useState(false);
+  const checkIfBusinessExists = () => {
+    const adminId = props.user._id;
+    axios.get(`/business/get-business-data/${adminId}`).then((response) => {
+      console.log(response.data);
+      if (response.data.foundBusiness.length === 0) {
+        setHasBusiness(false);
+      } else {
+        setHasBusiness(true);
+        setBusinessId(response.data.foundBusiness[0]._id);
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (currentUser) {
+      checkIfBusinessExists();
+    }
+  }, []);
 
   const loginHandler = (user) => {
     console.log("this is the user object => ", user);
@@ -52,7 +77,7 @@ function App(props) {
         exact
         path="/home"
         render={() => {
-          return currentUser ? <Home user={currentUser} /> : <Redirect to="/login" />;
+          return currentUser ? <Home user={currentUser} businessId={businessId} /> : <Redirect to="/login" />;
         }}
       />
       <Route
@@ -78,12 +103,45 @@ function App(props) {
         path="/home/business"
         render={() => {
           return currentUser && currentUser.type === "admin" ? (
-            <BusinessSetup user={currentUser} />
+            <BusinessSetupMain user={currentUser} />
           ) : (
             <Redirect to="/login" />
           );
         }}
       />
+      <Route
+        exact
+        path="/home/business/data"
+        render={() => {
+          return currentUser && currentUser.type === "admin" ? (
+            <BusinessDataSetup user={currentUser} />
+          ) : (
+            <Redirect to="/login" />
+          );
+        }}
+      />
+      <Route
+        exact
+        path="/home/business/staff"
+        render={() => {
+          return hasBusiness ? <StaffSetup user={currentUser} /> : <Redirect to="/home/business/data" />;
+        }}
+      />
+      <Route
+        exact
+        path="/home/business/calendar"
+        render={() => {
+          return hasBusiness ? <MyCalendar user={currentUser} /> : <Redirect to="/home/business/data" />;
+        }}
+      />
+      <Route
+        exact
+        path="/home/business/services"
+        render={() => {
+          return hasBusiness ? <ServiceSetup user={currentUser} /> : <Redirect to="/home/business/data" />;
+        }}
+      />
+
       <Route exact path="/booking/:businessId" render={(props) => <Booking {...props} />} />
     </Router>
   );

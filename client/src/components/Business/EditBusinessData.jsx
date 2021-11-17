@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TimePicker from "react-time-picker";
+import { Link } from "react-router-dom";
 
 export default function EditBusiness(props) {
   const [businessData, setBusinessData] = useState({
@@ -71,9 +72,9 @@ export default function EditBusiness(props) {
       });
   };
 
-  if (!businessData.name) {
-    return <div>Loading..</div>;
-  }
+  // if (!businessData.name) {
+  //   return <div>Loading..</div>;
+  // }
 
   return (
     <div className="flex flex-col items-center ">
@@ -113,9 +114,11 @@ export default function EditBusiness(props) {
           Save changes!
         </button>
       </form>
-      <button className=" rounded  border-2 border-black" onClick={props.onBackToMainClick}>
-        Back to DashBoard
-      </button>
+      <Link to="/home/business">
+        <button className=" rounded  border-2 border-black" onClick={props.onBackToMainClick}>
+          Back to DashBoard
+        </button>
+      </Link>
     </div>
   );
 }

@@ -21,6 +21,11 @@ export default function Home(props) {
             <button className=" rounded-lg bg-purple-600 text-white  border-2 border-black">Business Setup</button>
           </Link>
         )}
+        {props.user.type === "admin" && (
+          <Link to={`/booking/${props.businessId}`}>
+            <button className=" rounded-lg bg-purple-600 text-white  border-2 border-black">To Booking Page</button>
+          </Link>
+        )}
       </div>
     </div>
   );

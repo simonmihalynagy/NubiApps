@@ -11,7 +11,7 @@ export default function BusinessDataSetup(props) {
   useEffect(() => {
     axios.get(`/business/get-business-data/${adminId}`).then((response) => {
       if (response.data.foundBusiness && response.data.foundBusiness.length !== 0) {
-        console.log("this is the response from api call from business data setup", response.data.foundBusiness);
+        // console.log("this is the response from api call from business data setup", response.data.foundBusiness);
         setIsCreate(false);
       }
     });

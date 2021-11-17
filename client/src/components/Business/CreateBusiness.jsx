@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import TimePicker from "react-time-picker";
+import { Link } from "react-router-dom";
 
 export default function CreateBusiness(props) {
   //**STATES */
@@ -84,9 +85,11 @@ export default function CreateBusiness(props) {
           Create business!
         </button>
       </form>
-      <button className=" rounded  border-2 border-black mt-5" onClick={props.onBackToMainClick}>
-        Back to DashBoard
-      </button>
+      <Link to="/home/business">
+        <button className=" rounded  border-2 border-black mt-5" onClick={props.onBackToMainClick}>
+          Back to DashBoard
+        </button>
+      </Link>
     </div>
   );
 }

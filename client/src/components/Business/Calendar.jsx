@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import getHours from "date-fns/getHours";
@@ -132,12 +133,14 @@ export default function MyCalendar(props) {
           titleAccessor={"desc"}
           onSelectEvent={eventSelectHandler}
         />
-        <button
-          className="mt-10 border-2 rounded-lg border-purple-600 hover:bg-purple-600 hover:text-white"
-          onClick={props.onBackToMainClick}
-        >
-          Back to DashBoard
-        </button>
+        <Link to="/home/business">
+          <button
+            className="mt-10 border-2 rounded-lg border-purple-600 hover:bg-purple-600 hover:text-white"
+            onClick={props.onBackToMainClick}
+          >
+            Back to DashBoard
+          </button>
+        </Link>
       </div>
     </React.Fragment>
   );

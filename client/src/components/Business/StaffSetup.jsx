@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import AddNewEmployee from "./AddNewEmployee";
+import { Link } from "react-router-dom";
 
 export default function StaffSetup(props) {
   //const [singleEmployee, setSingleEmployee] = useState({});
@@ -55,12 +56,14 @@ export default function StaffSetup(props) {
         <div className="mx-auto flex flex-row justify-center w-2/4">
           <AddNewEmployee setIsSubmitting={setIsSubmitting} user={props.user} />
         </div>
-        <button
-          className=" mx-auto rounded border-2 border-black bg-purple-600 text-white"
-          onClick={props.onBackToMainClick}
-        >
-          Back to DashBoard
-        </button>
+        <Link to="/home/business">
+          <button
+            className=" mx-auto rounded border-2 border-black bg-purple-600 text-white"
+            onClick={props.onBackToMainClick}
+          >
+            Back to DashBoard
+          </button>
+        </Link>
       </div>
       <div classname="mx-auto flex justify-center"></div>
     </div>
