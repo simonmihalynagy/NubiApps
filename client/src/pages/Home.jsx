@@ -14,16 +14,22 @@ export default function Home(props) {
       <h1 className="text-3xl">Welcome {props.user.username} !</h1>
       <div className="flex mt-10 justify-between">
         <Link to="/home/edit-account">
-          <button className=" mr-10 rounded-lg bg-purple-600 text-white  border-2 border-black">Edit Account</button>
+          <button className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2">
+            Edit Account
+          </button>
         </Link>
         {props.user.type === "admin" && (
           <Link to="/home/business">
-            <button className=" rounded-lg bg-purple-600 text-white  border-2 border-black">Business Setup</button>
+            <button className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2">
+              Business Setup
+            </button>
           </Link>
         )}
-        {props.user.type === "admin" && (
+        {props.hasBusiness && (
           <Link to={`/booking/${props.businessId}`}>
-            <button className=" rounded-lg bg-purple-600 text-white  border-2 border-black">To Booking Page</button>
+            <button className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2">
+              To Booking Page
+            </button>
           </Link>
         )}
       </div>

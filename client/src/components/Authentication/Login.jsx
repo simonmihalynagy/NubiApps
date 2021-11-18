@@ -50,18 +50,37 @@ export default function Login(props) {
         {loginError && <div style={{ color: "red" }}>{loginError}</div>}
 
         <form className="flex flex-col items-center" onSubmit={submitHandler}>
-          <label>Enter Username</label>
-          <input onChange={inputChangeHangler} type="text" name="username" value={credentials.username} required />
-          <label>Enter Password</label>
-          <input onChange={inputChangeHangler} type="password" name="password" value={credentials.password} required />
+          <label className="text-xl text-gray-600"> Username</label>
+          <input
+            className="mb-6 shadow-xl rounded-lg focus:outline-purple-500"
+            onChange={inputChangeHangler}
+            type="text"
+            name="username"
+            value={credentials.username}
+            required
+          />
+          <label className="text-xl text-gray-600">Password</label>
+          <input
+            className="mb-6 shadow-xl rounded-lg focus:outline-purple-500"
+            onChange={inputChangeHangler}
+            type="password"
+            name="password"
+            value={credentials.password}
+            required
+          />
 
-          <button className="w-4/12 rounded bg-purple-600 text-white mt-10 border-2 border-black" type="submit">
-            Log-in!
+          <button
+            className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-9 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2"
+            type="submit"
+          >
+            Log-in
           </button>
         </form>
-        <p className="pt-4 ">Or sign-up first:</p>
+        <p className="mt-10 text-xl text-gray-600">Or sign-up first:</p>
         <Link to="/signup">
-          <button className=" rounded bg-purple-600 text-white  border-2 border-black">Sign-Up</button>
+          <button className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2">
+            Sign-Up
+          </button>
         </Link>
       </div>
     </div>

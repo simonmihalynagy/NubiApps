@@ -20,9 +20,17 @@ export default function BusinessDataSetup(props) {
   return (
     <React.Fragment>
       {isCreate ? (
-        <CreateBusiness onBackToMainClick={props.onBackToMainClick} user={props.user} />
+        <CreateBusiness
+          onBusinessSave={props.onBusinessSave}
+          onBackToMainClick={props.onBackToMainClick}
+          user={props.user}
+        />
       ) : (
-        <EditBusinessData onBackToMainClick={props.onBackToMainClick} user={props.user} />
+        <EditBusinessData
+          onBusinessSave={props.onBusinessSave}
+          onBackToMainClick={props.onBackToMainClick}
+          user={props.user}
+        />
       )}
     </React.Fragment>
   );

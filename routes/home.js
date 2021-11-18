@@ -15,7 +15,13 @@ const bcrypt = require("bcryptjs");
 
 router.put("/edit-account/:id", (req, res, next) => {
   const userId = req.params.id;
-  const { username, firstName, lastName, phone, email } = req.body;
+  const {
+    username,
+    firstName,
+    lastName,
+    // phone,
+    email,
+  } = req.body;
 
   // const salt = bcrypt.genSaltSync(10);
   // const hashPass = bcrypt.hashSync(password, salt);
@@ -27,7 +33,7 @@ router.put("/edit-account/:id", (req, res, next) => {
       username: username,
       firstName: firstName,
       lastName: lastName,
-      phone: phone,
+      // phone: phone,
       //password: hashPass
       email: email,
     },

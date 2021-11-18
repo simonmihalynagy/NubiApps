@@ -6,7 +6,7 @@ import Signup from "./components/Authentication/Signup";
 import Login from "./components/Authentication/Login";
 import Navbar from "./components/Navbar";
 import Welcome from "./components/Welcome";
-import Account from "./pages/Account";
+
 import EditAccount from "./pages/EditAccount";
 import BusinessSetup from "./pages/BusinessSetup";
 import Booking from "./pages/Booking";
@@ -32,6 +32,10 @@ function App(props) {
         setBusinessId(response.data.foundBusiness[0]._id);
       }
     });
+  };
+
+  const businessSavedHandler = () => {
+    setHasBusiness(true);
   };
 
   useEffect(() => {
@@ -77,16 +81,20 @@ function App(props) {
         exact
         path="/home"
         render={() => {
-          return currentUser ? <Home user={currentUser} businessId={businessId} /> : <Redirect to="/login" />;
+          return currentUser ? (
+            <Home user={currentUser} hasBusiness={hasBusiness} businessId={businessId} />
+          ) : (
+            <Redirect to="/login" />
+          );
         }}
       />
-      <Route
+      {/* <Route
         exact
         path="/account"
         render={() => {
           return currentUser ? <Account user={currentUser} /> : <Redirect to="/login" />;
         }}
-      />
+      /> */}
       <Route
         exact
         path="/home/edit-account"
@@ -114,7 +122,7 @@ function App(props) {
         path="/home/business/data"
         render={() => {
           return currentUser && currentUser.type === "admin" ? (
-            <BusinessDataSetup user={currentUser} />
+            <BusinessDataSetup onbusinessCreate={businessSavedHandler} user={currentUser} />
           ) : (
             <Redirect to="/login" />
           );

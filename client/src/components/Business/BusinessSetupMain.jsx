@@ -5,29 +5,29 @@ import { Link } from "react-router-dom";
 export default function BusinessSetupMain(props) {
   return (
     <div>
-      <div className="mx-auto my-auto  flex justify-center items-center">
+      <div className="mx-auto my-auto grid   flex-col justify-center items-center">
         <Link to="/home/business/data">
-          <button className="hover:bg-purple-200 rounded-lg hover:text-purple-600 transition-all shadow-md mt-5 mr-5  ounded-lg border-2 hover:translate-y-6 bg-purple-600 text-white">
+          <button className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2">
             Edit business data
           </button>
         </Link>
         <Link to="/home/business/services">
-          <button className="hover:bg-purple-200 hover:text-purple-600  transition-all shadow-md mr-5 mb-5 rounded-lg border-2 bg-purple-600 text-white">
+          <button className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2">
             Edit services
           </button>
         </Link>
         <Link to="/home/business/staff">
-          <button className="hover:bg-purple-200 hover:text-purple-600  transition-all shadow-md mb-5 ml-5 rounded-lg border-2 bg-purple-600 text-white">
+          <button className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2">
             Edit staff
           </button>
         </Link>
         <Link to="/home/business/calendar">
-          <button className="hover:bg-purple-200  hover:text-purple-600 transition-all shadow-md mt-5 ml-5 rounded-lg border-2 bg-purple-600 text-white">
+          <button className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2">
             Calendar
           </button>
         </Link>
         <Link to="/home">
-          <button className="hover:bg-purple-200  hover:text-purple-600 transition-all shadow-md mt-5 ml-5 rounded-lg border-2 bg-purple-600 text-white">
+          <button className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2">
             Home
           </button>
         </Link>

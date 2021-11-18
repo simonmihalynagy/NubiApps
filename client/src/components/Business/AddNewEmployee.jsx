@@ -32,49 +32,52 @@ export default function AddNewEmployee(props) {
   return (
     <React.Fragment>
       <div id="hello" className="flex flex-col justify-center items-center">
-        <h1 className="my-10 text-3xl">Add New Employee:</h1>
+        <h1 className="my-10 font-medium text-4xl">Add New Employee:</h1>
         <form className="flex flex-col items-center" onSubmit={submitHandler}>
-          <label>Choose a Username</label>
+          <label className="text-xl text-gray-600">Choose a Username</label>
           <input
-            className="focus:outline-none focus:border-purple-600 rounded-lg"
+            className="mb-6 shadow-xl rounded-lg focus:outline-purple-500"
             onChange={inputChangeHandler}
             type="text"
             name="username"
             value={employeeData.username}
           />
-          <label>Choose a password</label>
+          <label className="text-xl text-gray-600">Choose a password</label>
           <input
-            className="focus:outline-none focus:border-purple-600 rounded-lg"
+            className="mb-6 shadow-xl rounded-lg focus:outline-purple-500"
             onChange={inputChangeHandler}
             type="password"
             name="password"
             value={employeeData.password}
           />
-          <label>First name of Employee</label>
+          <label className="text-xl text-gray-600">First name of Employee</label>
           <input
-            className="focus:outline-none focus:border-purple-600 rounded-lg"
+            className="mb-6 shadow-xl rounded-lg focus:outline-purple-500"
             onChange={inputChangeHandler}
             type="text"
             name="firstName"
             value={employeeData.firstName}
           />
-          <label>Last name of Employee</label>
+          <label className="text-xl text-gray-600">Last name of Employee</label>
           <input
-            className="focus:outline-none focus:border-purple-600 rounded-lg"
+            className="mb-6 shadow-xl rounded-lg focus:outline-purple-500"
             onChange={inputChangeHandler}
             type="text"
             name="lastName"
             value={employeeData.lastName}
           />
-          <label>Email</label>
+          <label className="text-xl text-gray-600">Email</label>
           <input
-            className="focus:outline-none focus:border-purple-600 rounded-lg"
+            className="mb-6 shadow-xl rounded-lg focus:outline-purple-500"
             onChange={inputChangeHandler}
             type="text"
             name="email"
             value={employeeData.email}
           />
-          <button className="rounded border-2 border-black bg-purple-600 text-white" type="submit">
+          <button
+            className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2"
+            type="submit"
+          >
             Add employee
           </button>
         </form>

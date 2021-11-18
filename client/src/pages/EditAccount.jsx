@@ -42,46 +42,47 @@ export default function EditAccount(props) {
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="mt-10 text-4xl">hello {props.user.username}</h1>
-      <h5 className="mt-10  text-2xl">you can edit your account data below:</h5>
-      <form
-        onSubmit={submitHandler}
-        className="mt-10 flex flex-col items-center"
-      >
-        <label>First Name</label>
+      <h1 className="mt-10 font-medium text-4xl">Hello {props.user.username}!</h1>
+      <h5 className="mt-10  text-2xl text-gray-600">You can edit your account data below:</h5>
+      <form onSubmit={submitHandler} className="mt-10 flex flex-col items-center">
+        <label className="text-xl text-gray-600">First Name</label>
         <input
+          className="mb-6 shadow-xl rounded-lg focus:outline-purple-500"
           name="firstName"
           onChange={inputChangeHandler}
           type="text"
           placeholder={props.user.firstName}
           value={accountData.firstName}
         />
-        <label>Last Name</label>
+        <label className="text-xl text-gray-600">Last Name</label>
         <input
+          className="mb-6 shadow-xl rounded-lg focus:outline-purple-500"
           name="lastName"
           onChange={inputChangeHandler}
           type="text"
           placeholder={props.user.lastName}
           value={accountData.lastName}
         />
-        <label>Phone Number</label>
+        {/* <label>Phone Number</label>
         <input
           name="phone"
           onChange={inputChangeHandler}
           type="text"
           placeholder={props.user.phone}
           value={accountData.phone}
-        />
-        <label>Username</label>
+        /> */}
+        <label className="text-xl text-gray-600">Username</label>
         <input
+          className="mb-6 shadow-xl rounded-lg focus:outline-purple-500"
           name="username"
           onChange={inputChangeHandler}
           type="text"
           placeholder={props.user.username}
           value={accountData.username}
         />
-        <label>Email</label>
+        <label className="text-xl text-gray-600">Email</label>
         <input
+          className="mb-6 shadow-xl rounded-lg focus:outline-purple-500"
           name="email"
           onChange={inputChangeHandler}
           type="text"
@@ -89,7 +90,7 @@ export default function EditAccount(props) {
           value={accountData.email}
         />
         <button
-          className="border-2 rounded bg-purple-600 text-white"
+          className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2"
           type="submit"
         >
           Save Changes
@@ -97,14 +98,14 @@ export default function EditAccount(props) {
       </form>
 
       <button
-        className="border-2 rounded bg-purple-600 text-white"
+        className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2"
         onClick={deleteRequestHandler}
       >
-        Delete My Account
+        Delete Account
       </button>
 
       <Link to="/home">
-        <button className="border-2 rounded bg-purple-600 text-white">
+        <button className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2">
           Go Back
         </button>
       </Link>

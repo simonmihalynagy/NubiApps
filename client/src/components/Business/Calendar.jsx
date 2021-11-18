@@ -114,7 +114,8 @@ export default function MyCalendar(props) {
           show={deleteModalDisplayHandler}
         />
       ) : undefined}
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center pt-20">
+        <h1 className="text-4xl font-medium mb-20">Calendar</h1>
         <Calendar
           // toolbar={false}
           selectable={true}
@@ -126,7 +127,7 @@ export default function MyCalendar(props) {
           defaultView={"day"}
           endAccessor="end"
           date={currentDate}
-          style={{ height: 500 }}
+          style={{ height: 500, width: 1000 }}
           onNavigate={(date) => {
             setCurrentDate(date);
           }}
@@ -135,7 +136,7 @@ export default function MyCalendar(props) {
         />
         <Link to="/home/business">
           <button
-            className="mt-10 border-2 rounded-lg border-purple-600 hover:bg-purple-600 hover:text-white"
+            className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-20 border-2"
             onClick={props.onBackToMainClick}
           >
             Back to DashBoard

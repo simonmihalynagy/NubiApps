@@ -37,35 +37,38 @@ export default function StaffSetup(props) {
 
   return (
     <div>
-      <div className="flex flex-col">
-        <div className="mx-auto flex flex-col items-center w-2/4">
-          <h1 className="my-10 text-3xl">Employees</h1>
-          {employees.map((employee) => (
-            <div key={employee._id}>
-              <h3 className="text-red-800">{employee.firstName}</h3>
+      <div className="main flex justify-evenly">
+        <div classname="main_inner_1 flex flex-row">
+          <div className="main_inner_1_left text-center items-center">
+            <h1 className="my-10 font-medium text-4xl ">Current Employees</h1>
+            {employees.map((employee) => (
+              <div key={employee._id}>
+                <h2 className="font-medium text-2xl">{employee.firstName}</h2>
 
-              <button
-                className="rounded border-2 border-black bg-purple-600 text-white"
-                onClick={() => deleteClickHandler(employee._id)}
-              >
-                Remove this employee
-              </button>
-            </div>
-          ))}
+                <button
+                  className="hover:-translate-y-0.5 hover:bg-purple-400 transform px-2 py-2  font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2"
+                  onClick={() => deleteClickHandler(employee._id)}
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="mx-auto flex flex-row justify-center w-2/4">
+        <div className="main_inner_1_right">
           <AddNewEmployee setIsSubmitting={setIsSubmitting} user={props.user} />
         </div>
+      </div>
+      <div className="flex justify-center mt-20">
         <Link to="/home/business">
           <button
-            className=" mx-auto rounded border-2 border-black bg-purple-600 text-white"
+            className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2"
             onClick={props.onBackToMainClick}
           >
             Back to DashBoard
           </button>
         </Link>
       </div>
-      <div classname="mx-auto flex justify-center"></div>
     </div>
   );
 }

@@ -148,40 +148,49 @@ export default function Booking(props) {
             onSubmit={submitBookingHandler}
             className="focus:border-purple-600 flex flex-col w-2/5 text-center justify-items-center"
           >
-            <label>First Name</label>
+            <h1 className="text-4xl font-medium my-20">Book Your Appointment!</h1>
+            <label className="text-xl text-gray-600">First Name</label>
             <input
+              className="mb-6 shadow-xl rounded-lg focus:outline-purple-500"
               onChange={bookingDataInputChangeHandler}
               type="text"
               name="clientFirstName"
               id=""
               value={bookingData.clientFirstName}
             />
-            <label>Last Name</label>
+            <label className="text-xl text-gray-600">Last Name</label>
             <input
+              className="mb-6 shadow-xl rounded-lg focus:outline-purple-500"
               onChange={bookingDataInputChangeHandler}
               type="text"
               name="clientLastName"
               id=""
               value={bookingData.clientLastName}
             />
-            <label>Phone number</label>
+            <label className="text-xl text-gray-600">Phone number</label>
             <input
+              className="mb-6 shadow-xl rounded-lg focus:outline-purple-500"
               onChange={bookingDataInputChangeHandler}
               type="text"
               name="clientPhoneNumber"
               id=""
               value={bookingData.clientPhoneNumber}
             />
-            <label>Email</label>
+            <label className="text-xl text-gray-600">Email</label>
             <input
+              className="mb-6 shadow-xl rounded-lg focus:outline-purple-500"
               onChange={bookingDataInputChangeHandler}
               type="email"
               name="clientEmail"
               id=""
               value={bookingData.clientEmail}
             />
-            <label>select your provider</label>
-            <select onChange={bookingDataInputChangeHandler} name="chosenEmployee">
+            <label className="text-xl text-gray-600">select your provider</label>
+            <select
+              className="mb-6 shadow-xl rounded-lg focus:outline-purple-500"
+              onChange={bookingDataInputChangeHandler}
+              name="chosenEmployee"
+            >
               <option value="" defaultValue></option>
               {employees.map((employee) => {
                 return (
@@ -191,9 +200,13 @@ export default function Booking(props) {
                 );
               })}
             </select>
-            <label>select a service</label>
+            <label className="text-xl text-gray-600">select a service</label>
 
-            <select onChange={bookingDataInputChangeHandler} name="chosenService">
+            <select
+              className="mb-6 shadow-xl rounded-lg focus:outline-purple-500"
+              onChange={bookingDataInputChangeHandler}
+              name="chosenService"
+            >
               <option defaultValue value=""></option>
               {services.map((service) => {
                 return (
@@ -203,9 +216,10 @@ export default function Booking(props) {
                 );
               })}
             </select>
-            <label>pick a date</label>
-            <label>Date</label>
+
+            <label className="text-xl text-gray-600">Date</label>
             <input
+              className="mb-6 shadow-xl rounded-lg focus:outline-purple-500"
               type="date"
               min="01-01-2021"
               max="31-12-2022"
@@ -228,7 +242,7 @@ export default function Booking(props) {
                       chosenService={bookingData.chosenService}
                     />
                     <button
-                      className="mt-4 border-2 rounded border-purple-600 hover:text-white hover:bg-purple-600"
+                      className="mt-20 hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white  border-2"
                       type="submit"
                     >
                       Book appointment!

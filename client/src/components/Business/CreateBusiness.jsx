@@ -67,26 +67,64 @@ export default function CreateBusiness(props) {
 
   return (
     <div className="flex flex-col items-center text-center ">
-      <h1 className="text-2xl mb-10">Please fill-out the form below to create your business:</h1>
+      <h1 className="text-4xl font-medium mt-10 mb-10">Please fill-out the form below to create your business:</h1>
       {saveBusinessError && <div style={{ color: "red" }}>{saveBusinessError}</div>}
       <form className="flex flex-col items-center" onSubmit={submitHandler}>
-        <label>Name your business:</label>
-        <input onChange={inputChangeHandler} type="text" name="name" value={businessData.name} required />
-        <label>Please enter an email address:</label>
-        <input onChange={inputChangeHandler} type="text" name="email" value={businessData.email} required />
-        <label>Please enter the location on your business</label>
-        <input onChange={inputChangeHandler} type="text" name="location" value={businessData.location} required />
-        <label>Choose your opening hour:</label>
-        <TimePicker name="start" value="00:00" onChange={handleStartTimeInput} required />
-        <label>What time are you closing?</label>
-        <TimePicker name="finish" value="00:00" onChange={handleClosingTimeInput} required />
+        <label className="mb-2 text-xl text-gray-600">Name of your company:</label>
+        <input
+          className="text-center mb-6 shadow-xl rounded-lg focus:outline-purple-500"
+          onChange={inputChangeHandler}
+          type="text"
+          name="name"
+          value={businessData.name}
+          required
+        />
+        <label className="mb-2 text-xl text-gray-600">Email address:</label>
+        <input
+          className="text-center mb-6 shadow-xl rounded-lg focus:outline-purple-500"
+          onChange={inputChangeHandler}
+          type="text"
+          name="email"
+          value={businessData.email}
+          required
+        />
+        <label className="mb-2 text-xl text-gray-600">Please enter a location/address if you have one:</label>
+        <input
+          className="text-center mb-6 shadow-xl rounded-lg focus:outline-purple-500"
+          onChange={inputChangeHandler}
+          type="text"
+          name="location"
+          value={businessData.location}
+          required
+        />
+        <label className="mb-2 text-xl mt-10 text-gray-600">Opening time:</label>
+        <TimePicker
+          disableClock={true}
+          className="mb-5"
+          name="start"
+          value="00:00"
+          onChange={handleStartTimeInput}
+          required
+        />
+        <label className="mb-2 text-xl text-gray-600">Closing time:</label>
+        <TimePicker
+          disableClock={true}
+          className="mb-10"
+          name="finish"
+          value="00:00"
+          onChange={handleClosingTimeInput}
+          required
+        />
 
-        <button className=" rounded bg-purple-600 text-white  border-2 border-black mt-5" type="submit">
+        <button className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2">
           Create business!
         </button>
       </form>
       <Link to="/home/business">
-        <button className=" rounded  border-2 border-black mt-5" onClick={props.onBackToMainClick}>
+        <button
+          onClick={props.onBusinessSave}
+          className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2"
+        >
           Back to DashBoard
         </button>
       </Link>

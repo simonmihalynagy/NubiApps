@@ -78,44 +78,63 @@ export default function EditBusiness(props) {
 
   return (
     <div className="flex flex-col items-center ">
-      <h1>You can edit your business data below:</h1>
+      <h1 className="text-4xl font-medium mt-10 mb-10">You can edit your business data below:</h1>
       {/* {editBusinessError && <div style={{ color: "red" }}>{editBusinessError}</div>} */}
 
       <form className="flex flex-col items-center" onSubmit={submitHandler}>
-        <label>Current name:</label>
+        <label className="mb-2 text-xl text-gray-600">Name:</label>
         <input
+          className="text-center mb-6 shadow-xl rounded-lg focus:outline-purple-500"
           onChange={inputChangeHandler}
           type="text"
           name="name"
           value={businessData.name}
           placeholder={businessData.name}
         />
-        <label>Current email address:</label>
+        <label className="mb-2 text-xl text-gray-600">Email:</label>
         <input
+          className="text-center mb-6 shadow-xl rounded-lg focus:outline-purple-500"
           onChange={inputChangeHandler}
           type="text"
           name="email"
           value={businessData.email}
           placeholder={businessData.email}
         />
-        <label>Current location:</label>
+        <label className="mb-2 text-xl text-gray-600">Location:</label>
         <input
+          className="text-center mb-6 shadow-xl rounded-lg focus:outline-purple-500"
           onChange={inputChangeHandler}
           type="text"
           name="location"
           value={businessData.location}
           placeholder={businessData.location}
         />
-        <label>Choose your opening hour:</label>
-        <TimePicker name="start" value={businessData.start} onChange={handleStartTimeInput} />
-        <label>What time are you closing?</label>
-        <TimePicker name="finish" value={businessData.finish} onChange={handleClosingTimeInput} />
-        <button className=" rounded bg-purple-600 text-white  border-2 border-black" type="submit">
+        <label className="mb-2 text-xl text-gray-600">Opening hour:</label>
+        <TimePicker
+          disableClock={true}
+          className="mb-5 "
+          name="start"
+          value={businessData.start}
+          onChange={handleStartTimeInput}
+        />
+        <label className="mb-2 text-xl text-gray-600">Cosing hour:</label>
+        <TimePicker
+          disableClock={true}
+          className="mb-5"
+          name="finish"
+          value={businessData.finish}
+          onChange={handleClosingTimeInput}
+        />
+        <button className="mb-20 hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2">
           Save changes!
         </button>
       </form>
       <Link to="/home/business">
-        <button className=" rounded  border-2 border-black" onClick={props.onBackToMainClick}>
+        <button
+          className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2"
+          onClick={props.onBusinessSave}
+          onClick={props.onBackToMainClick}
+        >
           Back to DashBoard
         </button>
       </Link>

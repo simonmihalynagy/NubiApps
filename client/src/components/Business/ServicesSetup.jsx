@@ -38,20 +38,20 @@ export default function ServicesSetup(props) {
 
   return (
     <div>
-      <div className="flex flex-col items-center">
-        <div className="mb-10 flex flex-col items-center w-2/4">
-          <h1>Services</h1>
+      <div className="flex justify-evenly items-center">
+        <div className="mb-10 flex flex-col text-center justify-start items-center height-full w-2/4">
+          <h1 className="mb-20 font-medium text-4xl">Services</h1>
           {services.map((service) => (
             <div key={service._id}>
-              <h3 className="text-red-800">{service.name}</h3>
+              <h3 className="text-2xl mb-5">{service.name}</h3>
               <button
-                className="rounded border-2 border-black bg-purple-600 text-white"
+                className="mt-5 hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-l bg-purple-600 text-white  border-2"
                 onClick={() => editClickHandler(service)}
               >
                 Edit service
               </button>
               <button
-                className="rounded border-2 border-black bg-purple-600 text-white"
+                className="mt-5 hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-l bg-purple-600 text-white  border-2"
                 onClick={() => deleteClickHandler(service._id)}
               >
                 Delete this service
@@ -70,9 +70,11 @@ export default function ServicesSetup(props) {
             <AddNewService setIsSubmitting={setIsSubmitting} user={props.user} />
           )}
         </div>
+      </div>
+      <div className="flex justify-center">
         <Link to="/home/business">
           <button
-            className="mt-10 rounded border-2 border-black bg-purple-600 text-white"
+            className="mt-20 hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white  border-2"
             onClick={props.onBackToMainClick}
           >
             Back to DashBoard

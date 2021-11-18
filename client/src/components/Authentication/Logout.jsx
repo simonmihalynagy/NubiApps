@@ -11,5 +11,9 @@ export default function Logout(props) {
       console.log(response.data);
     });
   };
-  return <button onClick={logOutClickHandler}>Log-out</button>;
+  return (
+    <button className="text-3xl mr-5 font-medium" onClick={logOutClickHandler}>
+      Log-out
+    </button>
+  );
 }
