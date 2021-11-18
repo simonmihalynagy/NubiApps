@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import getHours from "date-fns/getHours";
-import getMinutes from "date-fns/getMinutes";
+// import getHours from "date-fns/getHours";
+// import getMinutes from "date-fns/getMinutes";
 import {
-  getTheYear,
-  getTheMinutes,
-  getTheHours,
-  getTheDay,
-  getTheMonth,
+  // getTheYear,
+  // getTheMinutes,
+  // getTheHours,
+  // getTheDay,
+  // getTheMonth,
   formatEventForCalendar,
 } from "../Booking/utils";
 
@@ -23,7 +23,7 @@ import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
 import eu from "date-fns/locale/eu";
 
-import events from "./eventExamples";
+// import events from "./eventExamples";
 // console.log(events);
 
 const locales = {
@@ -47,7 +47,7 @@ export default function MyCalendar(props) {
   const [selectedAppointment, setSelectedAppointment] = useState("");
   const [appointmentIsDeleted, setAppointmentIsDeleted] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [appointments, setAppointments] = useState([]);
+  // const [appointments, setAppointments] = useState([]);
   const [appointmentsRaw, setAppointmentsRaw] = useState([]);
   const [isDeleteAppointment, setIsDeleteAppointment] = useState(false);
 
@@ -70,6 +70,7 @@ export default function MyCalendar(props) {
 
   useEffect(() => {
     getAppointments();
+    //eslint-disable-next-line
   }, [appointmentIsDeleted]);
 
   const deleteModalDisplayHandler = () => {

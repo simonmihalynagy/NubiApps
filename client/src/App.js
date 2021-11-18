@@ -5,10 +5,10 @@ import Home from "./pages/Home";
 import Signup from "./components/Authentication/Signup";
 import Login from "./components/Authentication/Login";
 import Navbar from "./components/Navbar";
-import Welcome from "./components/Welcome";
+import Welcome from "./pages/Welcome";
 
 import EditAccount from "./pages/EditAccount";
-import BusinessSetup from "./pages/BusinessSetup";
+
 import Booking from "./pages/Booking";
 import BusinessSetupMain from "./components/Business/BusinessSetupMain";
 import BusinessDataSetup from "./components/Business/BusinessDataSetup";
@@ -22,35 +22,45 @@ function App(props) {
 
   const [hasBusiness, setHasBusiness] = useState(false);
   const checkIfBusinessExists = () => {
-    const adminId = props.user._id;
-    axios.get(`/business/get-business-data/${adminId}`).then((response) => {
-      console.log(response.data);
-      if (response.data.foundBusiness.length === 0) {
-        setHasBusiness(false);
-      } else {
-        setHasBusiness(true);
-        setBusinessId(response.data.foundBusiness[0]._id);
-      }
-    });
+    if (currentUser && currentUser.type === "admin") {
+      const adminId = currentUser._id;
+      axios.get(`/business/get-business-data/${adminId}`).then((response) => {
+        console.log(response.data);
+        if (response.data.foundBusiness.length === 0) {
+          setHasBusiness(false);
+        } else {
+          setHasBusiness(true);
+          setBusinessId(response.data.foundBusiness[0]._id);
+        }
+      });
+    } else {
+      return;
+    }
   };
 
   const businessSavedHandler = () => {
-    setHasBusiness(true);
+    if (currentUser) {
+      console.log("setting hasbusiness ");
+      setHasBusiness(true);
+    }
   };
 
   useEffect(() => {
-    if (currentUser) {
-      checkIfBusinessExists();
-    }
-  }, []);
+    checkIfBusinessExists();
+    //eslint-disable-next-line
+  }, [currentUser]);
 
   const loginHandler = (user) => {
-    console.log("this is the user object => ", user);
-    setCurrentUser(user);
+    if (user === null) {
+      console.log("this is the user object => ", user);
+      setHasBusiness(false);
+      setCurrentUser(user);
+    } else setCurrentUser(user);
   };
 
   return (
     <Router>
+      {console.log(currentUser)}
       <React.Fragment>
         <Navbar user={currentUser} onLogout={loginHandler} />
       </React.Fragment>
@@ -66,7 +76,7 @@ function App(props) {
         exact
         path="/login"
         render={() => {
-          console.log(currentUser);
+          // console.log(currentUser);
           return !currentUser ? <Login onLogin={loginHandler} /> : <Redirect to="/home" />;
         }}
       />
@@ -122,7 +132,7 @@ function App(props) {
         path="/home/business/data"
         render={() => {
           return currentUser && currentUser.type === "admin" ? (
-            <BusinessDataSetup onbusinessCreate={businessSavedHandler} user={currentUser} />
+            <BusinessDataSetup onBusinessSave={businessSavedHandler} user={currentUser} />
           ) : (
             <Redirect to="/login" />
           );

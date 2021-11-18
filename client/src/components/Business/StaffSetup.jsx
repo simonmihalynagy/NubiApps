@@ -38,11 +38,11 @@ export default function StaffSetup(props) {
   return (
     <div>
       <div className="main flex justify-evenly">
-        <div classname="main_inner_1 flex flex-row">
+        <div className="main_inner_1 flex flex-row">
           <div className="main_inner_1_left text-center items-center">
             <h1 className="my-10 font-medium text-4xl ">Current Employees</h1>
             {employees.map((employee) => (
-              <div key={employee._id}>
+              <div className="mt-10" key={employee._id}>
                 <h2 className="font-medium text-2xl">{employee.firstName}</h2>
 
                 <button

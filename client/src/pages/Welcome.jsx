@@ -13,11 +13,15 @@ export default function Welcome() {
       </p>
       <div className="flex flex-col items-center pt-20">
         <Link to="/login">
-          <button className="px-12 py-5 rounded-lg border-2 bg-purple-600 text-white text-3xl">Log-In!</button>
+          <button className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-8 font-medium rounded-xl text-2xl bg-purple-600 text-white mt-5 border-2">
+            Log-In!
+          </button>
         </Link>
 
         <Link to="/signup">
-          <button className="px-10 py-5 mt-10 rounded-lg border-2  bg-purple-600 text-white text-3xl">Sign-up!</button>
+          <button className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-2xl bg-purple-600 text-white mt-5 border-2">
+            Sign-up!
+          </button>
         </Link>
 
         {/* <Link to="/booking">

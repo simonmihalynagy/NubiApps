@@ -3,12 +3,10 @@ import axios from "axios";
 
 export default function Logout(props) {
   const logOutClickHandler = () => {
-    // /home
-    // /
     axios.post("/auth/logout").then((response) => {
+      console.log(response.data);
       const user = null;
       props.onLogout(user);
-      console.log(response.data);
     });
   };
   return (

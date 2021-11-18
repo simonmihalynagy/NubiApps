@@ -34,6 +34,7 @@ export default function EditBusiness(props) {
       // );
       setBusinessData(response.data.foundBusiness[0]);
     });
+    //eslint-disable-next-line
   }, []);
 
   const inputChangeHandler = (event) => {
@@ -71,10 +72,6 @@ export default function EditBusiness(props) {
         console.log(error);
       });
   };
-
-  // if (!businessData.name) {
-  //   return <div>Loading..</div>;
-  // }
 
   return (
     <div className="flex flex-col items-center ">
@@ -126,13 +123,13 @@ export default function EditBusiness(props) {
           onChange={handleClosingTimeInput}
         />
         <button className="mb-20 hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2">
+          onClick={props.onBusinessSave}
           Save changes!
         </button>
       </form>
       <Link to="/home/business">
         <button
           className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2"
-          onClick={props.onBusinessSave}
           onClick={props.onBackToMainClick}
         >
           Back to DashBoard

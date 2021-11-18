@@ -26,6 +26,14 @@ export default function AddNewEmployee(props) {
     axios.post(`/business/add-employee/${props.user._id}`, employeeData).then((response) => {
       props.setIsSubmitting(false);
       console.log(response.data);
+      setEmployeeData({
+        username: "",
+        password: "", // hashed
+        firstName: "",
+        lastName: "",
+        email: "",
+        type: "employee",
+      });
     });
   };
 

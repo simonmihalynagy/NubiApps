@@ -5,6 +5,10 @@ const Service = require("../models/Service");
 const User = require("../models/User");
 const Appointment = require("../models/Appointment");
 
+const sendGridMail = require("@sendgrid/mail");
+
+sendGridMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 router.post("/book-appointment/:businessId", (req, res, next) => {
   const businessId = req.params.businessId;
   const {
@@ -34,10 +38,27 @@ router.post("/book-appointment/:businessId", (req, res, next) => {
     },
   });
 
+  const bookingMessage = {
+    to: clientEmail,
+    from: "bookitgmbh@gmail.com",
+    subject: "booking confirmation",
+    text: `thank you, your booking has been confirmed for ${date} at ${start}'o clock`,
+    html: `<h1>Booking confirmed!</h1>
+            <p>Thank you for your booking!</p>
+            <p>To cancel your appointment, please click the link below:</p>
+            <a href="${process.env.SENDGRID_APP_CANCEL_API}${newAppointment._id}">Cancel Appointment</a>
+            `,
+  };
+
   newAppointment
     .save()
     .then(
       res.json({ message: "new appointment created", newApp: newAppointment })
+    )
+    .then(
+      sendGridMail.send(bookingMessage).then((response) => {
+        console.log("email has been sent");
+      })
     )
     .catch((error) => {
       res.json({ error: error });

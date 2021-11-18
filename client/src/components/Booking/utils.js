@@ -115,110 +115,6 @@ export const formatAppointments = (appointmentsArr) => {
     .sort((app1, app2) => app1.start - app2.start);
 };
 
-// export const createFreeTimeBlocksBetweenAppointments = (appointments, businessHours) => {
-//   console.log("these are the apppointments: ", appointments);
-//   console.log("these are the businessHours: ", businessHours);
-//   let freeTimeBlocks = [];
-
-//   for (let i = 0; i < appointments.length; i++) {
-//     if (appointments.length === 1) {
-//       if (appointments[i].start === businessHours.start) {
-//         const appointment = appointments[i];
-//         freeTimeBlocks.push({
-//           start: appointment.finish,
-//           duration: businessHours.finish - appointment.finish,
-//           finish: businessHours.finish,
-//         });
-//       } else if (appointments[i].finish === businessHours.finish) {
-//         const appointment = appointments[i];
-//         freeTimeBlocks.push({
-//           start: businessHours.start,
-//           duration: appointment.start - businessHours.start,
-//           finish: appointment.start,
-//         });
-//       } else {
-//         const appointment = appointments[i];
-//         freeTimeBlocks.push(
-//           {
-//             start: businessHours.start,
-//             duration: appointment.start - businessHours.start,
-//             finish: appointment.start,
-//           },
-//           { start: appointment.finish, duration: businessHours.finish - appointment.finish, finish: appointment.finish }
-//         );
-//       }
-//     } else {
-//       if (i === 0) {
-//         if (appointments[i].start !== businessHours.start) {
-//           const firstAppointment = appointments[i];
-//           const nextAppointment = appointments[i + 1];
-//           freeTimeBlocks.push(
-//             {
-//               start: businessHours.start,
-//               duration: firstAppointment.start - businessHours.start,
-//               finish: firstAppointment.start,
-//             },
-//             {
-//               start: firstAppointment.finish,
-//               duration: nextAppointment.start - firstAppointment.finish,
-//               finish: nextAppointment.start,
-//             }
-//           );
-//         } else if (appointments[i].start === businessHours.start) {
-//           const firstAppointment = appointments[i];
-//           const nextAppointment = appointments[i + 1];
-//           freeTimeBlocks.push({
-//             start: firstAppointment.finish,
-//             duration: nextAppointment.start - firstAppointment.finish,
-//             finish: nextAppointment.start,
-//           });
-//         }
-//       } else if (i === appointments.length - 1) {
-//         if (appointments[i].finish !== businessHours.finish) {
-//           const lastAppointment = appointments[i];
-//           freeTimeBlocks.push({
-//             start: lastAppointment.finish,
-//             duration: businessHours.finish - lastAppointment.finish,
-//             finish: businessHours.finish,
-//           });
-//         }
-//       } else {
-//         const currentAppointment = appointments[i];
-//         const nextAppointment = appointments[i + 1];
-//         if (currentAppointment.finish < nextAppointment.start)
-//           freeTimeBlocks.push({
-//             start: currentAppointment.finish,
-//             duration: nextAppointment.start - currentAppointment.finish,
-//           });
-//       }
-//     }
-//   }
-//   console.log("these are the free time blocks: ", freeTimeBlocks);
-//   return freeTimeBlocks.sort((block1, block2) => {
-//     return block1.start - block2.start;
-//   });
-// };
-
-// export const createAllTimeSlotsInFreeTimeBlock = (interval, serviceDuration) => {
-//   const numberOfSlots = interval.duration / serviceDuration;
-
-//   console.log("this is the freetimeBlock: ", interval);
-
-//   const timeSlotArray = [];
-//   for (let i = 1; i <= numberOfSlots; i++) {
-//     if (i === 1) {
-//       timeSlotArray.push(interval.start);
-//     } else {
-//       const timeTillNextSlot = (i - 1) * serviceDuration;
-//       timeSlotArray.push(interval.start + timeTillNextSlot);
-//     }
-//   }
-
-//   console.log(numberOfSlots);
-//   console.log("these are the timeslots from createFreeTimeSlots: ", timeSlotArray);
-//   return timeSlotArray;
-// };
-
 export const collides = (currentMinute, currentAppointment, chosenServiceDuration) => {
   // console.log(currentAppointment);
   const start = currentMinute;
@@ -265,25 +161,6 @@ export const createTimeSlots = (appointmentsArr, chosenServiceDuration, business
       }
     }
   }
-
-  // else {
-  //   const existingAppointments = formatAppointments(appointmentsArr);
-  //   console.log("existingAppointments: ", existingAppointments);
-  //   const freeTimeBlocks = createFreeTimeBlocksBetweenAppointments(existingAppointments, businessHoursInMinutes);
-  //   console.log(freeTimeBlocks);
-  //   timeSlotsArray = freeTimeBlocks
-  //     .map((freeTimeBlock) => {
-  //       if (freeTimeBlock.duration > serviceDuration) {
-  //         return createAllTimeSlotsInFreeTimeBlock(freeTimeBlock, serviceDuration);
-  //       } else {
-  //         return;
-  //       }
-  //     })
-  //     .flat();
-  //   console.log(timeSlotsArray);
-  // }
-
-  // console.log(timeSlotsArray);
 
   return timeSlotsArray.map((timeSlot) => convertToTimeSlotString(timeSlot));
 };

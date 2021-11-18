@@ -1,14 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Logout from "./Authentication/Logout";
-import ModalAbout from "./ModalAbout";
 
 export default function Navbar(props) {
-  const [modalIsVisible, setModalIsVisible] = useState(false);
-
-  const displayAboutModal = () => {
-    setModalIsVisible(!modalIsVisible);
-  };
-
   return (
     <div className="h-20  flex items-center  justify-between bg-purple-700 text-white">
       <span className="text-white font-medium text-3xl">Book-it.</span>

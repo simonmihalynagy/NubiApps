@@ -65,6 +65,7 @@ app.use(
 
 // app.set("views", path.join(__dirname, "views"));
 // app.set("view engine", "hbs");
+app.use(express.static(path.join(__dirname, "/client/build")));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 
@@ -88,5 +89,10 @@ app.use("/booking", booking);
 
 const calendar = require("./routes/calendar");
 app.use("/calendar", calendar);
+
+app.use((req, res, next) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + "/client/build/index.html");
+});
 
 module.exports = app;

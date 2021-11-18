@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Select from "react-select";
+
 // import DatePicker from "react-datepicker";
 // import setHours from "date-fns/setHours";
 // import setMinutes from "date-fns/setMinutes";
@@ -13,19 +13,11 @@ import ModalConfirm from "../components/ModalConfirm";
 export default function Booking(props) {
   const [clickedTimeSlot, setClickedTimeSlot] = useState("");
   const [bookingError, setBookingError] = useState(false);
-  // console.log("props.match . params :", props.match.params);
   const [employees, setEmployees] = useState([]);
   const [services, setServices] = useState([]);
   const [businessHours, setBusinessHours] = useState({});
-
-  //const [timeSlots, setTimeSlots] = useState(["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"]);
   const [isLoading, setIsLoading] = useState(true);
   const [showConfirm, setShowConfirm] = useState(false);
-
-  const [selectedDate, setSelectedDate] = useState("");
-  const [selectedEmployeeId, setSelectedEmployeeId] = useState("");
-
-  //console.log(startDate);
 
   //**IF THERE IS ONLY ONE OPTION IN "SELECT" INPUT, MAKE SURE TO SET THAT AS DEFAULT SELECTED ITEM!!!!!! */
 

@@ -31,6 +31,7 @@ export default function TimeSlotContainer(props) {
 
   useEffect(() => {
     getAppointments();
+    //eslint-disable-next-line
   }, [props.chosenService, props.chosenEmployee, props.chosenDate]);
 
   return (
