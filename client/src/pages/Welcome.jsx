@@ -9,7 +9,7 @@ export default function Welcome() {
       </div>
       <img className="" src="carson-masterson-tdrxKGo5zoY-unsplash.jpg" alt="by Carson Masterson" />
       <p className="mt-5 text-4xl text-gray-500 text-center">
-        Set up a ligthweight booking-system to manage your appointments!
+        Set up a lightweight booking-system to manage your appointments!
       </p>
       <div className="flex flex-col items-center pt-20">
         <Link to="/login">
