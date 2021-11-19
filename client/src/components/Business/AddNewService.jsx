@@ -83,7 +83,7 @@ export default function AddNewService(props) {
             type="number"
             min="0"
             step="1"
-            max="60"
+            max="720"
           />
 
           {/* <label className="text-xl text-gray-600">Cost (EUR)</label>

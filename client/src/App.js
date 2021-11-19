@@ -15,6 +15,7 @@ import BusinessDataSetup from "./components/Business/BusinessDataSetup";
 import StaffSetup from "./components/Business/StaffSetup";
 import MyCalendar from "./components/Business/Calendar";
 import ServiceSetup from "./components/Business/ServicesSetup";
+import DeleteApp from "./pages/DeleteApp";
 function App(props) {
   //*state to manage currently logged in user*/
   const [currentUser, setCurrentUser] = useState(props.user);
@@ -161,6 +162,7 @@ function App(props) {
       />
 
       <Route exact path="/booking/:businessId" render={(props) => <Booking {...props} />} />
+      <Route exact path="/cancel-booking/:appId" render={(props) => <DeleteApp {...props} />} />
     </Router>
   );
 }
