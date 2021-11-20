@@ -20,6 +20,7 @@ function App(props) {
   //*state to manage currently logged in user*/
   const [currentUser, setCurrentUser] = useState(props.user);
   const [businessId, setBusinessId] = useState("");
+  console.log("this is the businessId: ", businessId);
 
   const [hasBusiness, setHasBusiness] = useState(false);
   const checkIfBusinessExists = () => {
@@ -49,7 +50,7 @@ function App(props) {
   useEffect(() => {
     checkIfBusinessExists();
     //eslint-disable-next-line
-  }, [currentUser]);
+  }, [currentUser, hasBusiness]);
 
   const loginHandler = (user) => {
     if (user === null) {
