@@ -122,8 +122,10 @@ export default function EditBusiness(props) {
           value={businessData.finish}
           onChange={handleClosingTimeInput}
         />
-        <button className="mb-20 hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2">
+        <button
           onClick={props.onBusinessSave}
+          className="mb-20 hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2"
+        >
           Save changes!
         </button>
       </form>

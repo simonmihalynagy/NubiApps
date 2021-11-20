@@ -126,15 +126,15 @@ export default function CreateBusiness(props) {
           required
         />
 
-        <button className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2">
-          Create business!
-        </button>
-      </form>
-      <Link to="/home/business">
         <button
           onClick={props.onBusinessSave}
           className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2"
         >
+          Create business!
+        </button>
+      </form>
+      <Link to="/home/business">
+        <button className="hover:-translate-y-0.5 hover:bg-purple-400 transform py-6 px-6 font-medium rounded-xl text-xl bg-purple-600 text-white mt-5 border-2">
           Back to DashBoard
         </button>
       </Link>
