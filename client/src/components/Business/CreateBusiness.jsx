@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import TimePicker from "react-time-picker";
 import { Link } from "react-router-dom";
+import ModalConfirm from "../ModalConfirm";
 
 export default function CreateBusiness(props) {
   //**STATES */
@@ -15,9 +16,16 @@ export default function CreateBusiness(props) {
     finish: "",
   });
 
+  const [isCreated, setIsCreated] = useState(false);
+  const modalMessage = "Business Created!";
+
   const [saveBusinessError, setSaveBusinessError] = useState("");
 
   //**HANDLERS */
+
+  const businessCreatedHandler = () => {
+    setIsCreated(!isCreated);
+  };
 
   const handleStartTimeInput = (time) => {
     setBusinessData({
@@ -49,6 +57,7 @@ export default function CreateBusiness(props) {
         if (response.data.business) {
           props.onBusinessSave();
           console.log(response.data);
+          businessCreatedHandler();
         } else {
           setSaveBusinessError(response.data.message);
         }
@@ -67,6 +76,7 @@ export default function CreateBusiness(props) {
 
   return (
     <div className="flex flex-col items-center text-center ">
+      {isCreated ? <ModalConfirm title={modalMessage} show={businessCreatedHandler} /> : undefined}
       <h1 className="text-4xl font-medium mt-10 mb-10">Please fill-out the form below to create your business:</h1>
       {saveBusinessError && <div style={{ color: "red" }}>{saveBusinessError}</div>}
       <form className="flex flex-col items-center" onSubmit={submitHandler}>
