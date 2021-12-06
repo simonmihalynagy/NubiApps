@@ -4,7 +4,11 @@ import axios from "axios";
 
 //TAILWIND
 
-const inputStyle = "mb-6 shadow-xl rounded-lg focus:outline-purple-500";
+import { inputStyle } from "./Login";
+import { buttonStyle } from "./Login";
+import { labelStyle } from "./Login";
+
+//COMPNENT FUNCTION
 
 export default function Signup(props) {
   const { register, handleSubmit } = useForm();
@@ -23,39 +27,31 @@ export default function Signup(props) {
   };
 
   return (
-    <React.Fragment>
+    <>
       <div className="mb-10 flex flex-col items-center">
         <div>
           <h1 className="text-center pt-10 text-2xl">Please Fill-Out The Form Below, To Register!</h1>
         </div>
         <div className="pt-10">
           <form className=" flex flex-col items-center" onSubmit={handleSubmit(onSubmit)}>
-            <label className="text-xl text-gray-600">First Name</label>
+            <label className={labelStyle}>First Name</label>
             <input {...register("firstName")} className={inputStyle} type="text" required />
-            <label className="text-xl text-gray-600">Last Name</label>
+            <label className={labelStyle}>Last Name</label>
             <input {...register("lastName")} className={inputStyle} type="text" required />
-            <label className="text-xl text-gray-600">Choose A Username</label>
+            <label className={labelStyle}>Choose A Username</label>
             <input {...register("username")} className={inputStyle} type="text" required />
-            <label className="text-xl text-gray-600">Choose A Password</label>
-            <input
-              {...register("password")}
-              className="mb-6 shadow-xl rounded-lg focus:outline-purple-500"
-              type="password"
-              required
-            />
+            <label className={labelStyle}>Choose A Password</label>
+            <input {...register("password")} className={inputStyle} type="password" required />
 
-            <label className="text-xl text-gray-600">E-mail</label>
+            <label className={labelStyle}>E-mail</label>
             <input className={inputStyle} {...register("email")} type="email" name="email" required />
 
-            <button
-              className="hover:-translate-y-0.5 font-medium hover:bg-purple-400 transform py-6 px-6 rounded-xl text-xl bg-purple-600 text-white mt-10 border-2"
-              type="submit"
-            >
+            <button className={buttonStyle} type="submit">
               Sign Up!
             </button>
           </form>
         </div>
       </div>
-    </React.Fragment>
+    </>
   );
 }
