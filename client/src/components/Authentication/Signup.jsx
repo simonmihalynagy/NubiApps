@@ -1,17 +1,39 @@
-import React from "react";
-import { useForm } from "react-hook-form";
 import axios from "axios";
+import React from "react";
 
-//TAILWIND
-
+//FORM UTILS
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { inputStyle } from "./Login";
 import { buttonStyle } from "./Login";
 import { labelStyle } from "./Login";
 
+const usernameRegex = /^[a-zA-Z0-9]+$/;
+const passwordRegex = /^[A-Za-z]\w{7,15}$/;
+
+const formSchema = yup.object().shape({
+  firstName: yup.string().required("This field is required"),
+  lastName: yup.string().required("This field is required"),
+  username: yup.string().matches(usernameRegex).required(),
+  password: yup.string().matches(passwordRegex, "password should be 7-16 characters").required(),
+  email: yup.string().email().required(),
+});
+
+//TAILWIND
+
 //COMPNENT FUNCTION
 
 export default function Signup(props) {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(formSchema),
+  });
+
+  console.log(errors);
 
   const onSubmit = (data) => {
     axios
@@ -35,17 +57,20 @@ export default function Signup(props) {
         <div className="pt-10">
           <form className=" flex flex-col items-center" onSubmit={handleSubmit(onSubmit)}>
             <label className={labelStyle}>First Name</label>
-            <input {...register("firstName")} className={inputStyle} type="text" required />
+            <input {...register("firstName")} name="firstName" className={inputStyle} type="text" required />
+            <p>{errors.firstName ? errors.firstName.message : undefined}</p>
             <label className={labelStyle}>Last Name</label>
-            <input {...register("lastName")} className={inputStyle} type="text" required />
+            <input {...register("lastName")} name="lastName" className={inputStyle} type="text" required />
+            <p>{errors.lastName ? errors.lastName.message : undefined}</p>
             <label className={labelStyle}>Choose A Username</label>
-            <input {...register("username")} className={inputStyle} type="text" required />
+            <input {...register("username")} name="username" className={inputStyle} type="text" required />
+            <p>{errors.username ? errors.username.message : undefined}</p>
             <label className={labelStyle}>Choose A Password</label>
-            <input {...register("password")} className={inputStyle} type="password" required />
-
+            <input {...register("password")} name="password" className={inputStyle} type="password" required />
+            <p>{errors.password ? errors.password.message : undefined}</p>
             <label className={labelStyle}>E-mail</label>
-            <input className={inputStyle} {...register("email")} type="email" name="email" required />
-
+            <input className={inputStyle} name="email" {...register("email")} type="email" required />
+            <p>{errors.email ? errors.email.message : undefined}</p>
             <button className={buttonStyle} type="submit">
               Sign Up!
             </button>
